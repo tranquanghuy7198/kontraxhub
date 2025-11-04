@@ -18,6 +18,7 @@ const WalletCard: React.FC<{
   const dispatch = useAppDispatch();
 
   const connectWallet = async (wallet: Wallet): Promise<void> => {
+    if (disabled) return;
     try {
       setLoading(true);
       await wallet.connect();

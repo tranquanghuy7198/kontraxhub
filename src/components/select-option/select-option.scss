@@ -1,5 +1,6 @@
+@use "../../styles.scss" as *;
+
 .select-icon {
-  width: 20px !important;
-  height: 20px !important;
+  @extend .chain-icon;
   margin-top: -3px;
 }

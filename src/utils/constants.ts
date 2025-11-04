@@ -5,7 +5,7 @@ export const TX_PATTERN = "[[tx]]";
 
 export enum NetworkCluster {
   Ethereum = "ethereum",
-  Klaytn = "klaytn",
+  Kaia = "kaia",
   Ronin = "ronin",
   Solana = "solana",
   Sui = "sui",
@@ -17,7 +17,7 @@ export enum NetworkCluster {
 export const networkClusterIcon = (networkCluster: NetworkCluster): string => {
   return {
     [NetworkCluster.Ethereum]: "https://i.ibb.co/wZsCSP9F/ic-ethereum.png",
-    [NetworkCluster.Klaytn]: "https://i.ibb.co/MD3Nj0sm/ic-klaytn.png",
+    [NetworkCluster.Kaia]: "https://i.ibb.co/MD3Nj0sm/ic-klaytn.png",
     [NetworkCluster.Ronin]: "https://i.ibb.co/1Gw44cZC/ic-ronin.png",
     [NetworkCluster.Solana]: "https://i.ibb.co/vCHPLmDG/ic-solana.png",
     [NetworkCluster.Sui]: "https://i.ibb.co/Q4Ks6pJ/ic-sui.png",

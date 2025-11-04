@@ -3,6 +3,22 @@
 .wallet-card {
   width: 100%;
   height: min-content;
+  border: none;
+}
+
+.wallet-card.loading {
+  border: 1px solid var(--wallet-border);
+}
+
+.wallet-card:hover,
+.wallet-card.loading {
+  background: linear-gradient(var(--wallet-bg), var(--wallet-bg)) padding-box,
+    conic-gradient(
+        from var(--border-angle),
+        hsl(190deg 20% 10%) 50%,
+        var(--wallet-bg)
+      )
+      border-box;
 }
 
 .loading {

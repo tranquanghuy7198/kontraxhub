@@ -47,14 +47,15 @@ const WalletCard: React.FC<{
         hoverable
         className={`wallet-card ${loading ? "loading" : ""}`}
         size="small"
-        style={{
-          border: `3px solid ${
-            loading ? "transparent" : wallet.ui.backgroundColor
-          }`,
-          background: `linear-gradient(${wallet.ui.backgroundColor}, ${wallet.ui.backgroundColor}) padding-box,
-            conic-gradient(from var(--border-angle), hsl(190deg 20% 10%) 50%, ${wallet.ui.backgroundColor}) border-box`,
-        }}
         onClick={() => connectWallet(wallet)}
+        style={
+          {
+            "--wallet-bg": wallet.ui.backgroundColor,
+            "--wallet-border": loading
+              ? "transparent"
+              : wallet.ui.backgroundColor,
+          } as React.CSSProperties
+        }
       >
         <div className="wallet-card-content">
           <Image className="wallet-logo" preview={false} src={wallet.ui.icon} />

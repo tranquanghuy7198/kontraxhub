@@ -14,6 +14,19 @@ export enum NetworkCluster {
   FlowChain = "flowchain",
 }
 
+export const NetworkClusterIcon = (networkCluster: NetworkCluster): string => {
+  return {
+    [NetworkCluster.Ethereum]: "https://i.ibb.co/wZsCSP9F/ic-ethereum.png",
+    [NetworkCluster.Klaytn]: "https://i.ibb.co/MD3Nj0sm/ic-klaytn.png",
+    [NetworkCluster.Ronin]: "https://i.ibb.co/1Gw44cZC/ic-ronin.png",
+    [NetworkCluster.Solana]: "https://i.ibb.co/vCHPLmDG/ic-solana.png",
+    [NetworkCluster.Sui]: "https://i.ibb.co/Q4Ks6pJ/ic-sui.png",
+    [NetworkCluster.Aptos]: "https://i.ibb.co/cKmHdDq7/ic-aptos.png",
+    [NetworkCluster.Cosmos]: "https://i.ibb.co/7dzZHLyP/ic-cosmos-hub.png",
+    [NetworkCluster.FlowChain]: "https://i.ibb.co/Y4SXx0Wy/ic-flow.png",
+  }[networkCluster];
+};
+
 export enum AbiAction {
   Deploy = "deploy",
   Read = "read",

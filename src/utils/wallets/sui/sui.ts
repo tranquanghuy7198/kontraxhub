@@ -39,7 +39,7 @@ export class Slush extends Wallet {
       ui: {
         name: slushWallet?.name ?? SLUSH_WALLET_NAME,
         icon: slushWallet?.icon ?? SuiIcon,
-        backgroundColor: "#00B8D9",
+        backgroundColor: "#00515fff",
         titleColor: "#aff3ffff",
       },
       installLink:

@@ -60,12 +60,7 @@ const WalletCard: React.FC<{
         <div className="wallet-card-content">
           <Image className="wallet-logo" preview={false} src={wallet.ui.icon} />
           <div className="wallet-title">
-            <div
-              className="wallet-name"
-              style={{ color: wallet.ui.titleColor }}
-            >
-              {wallet.ui.name}
-            </div>
+            <div className="wallet-name">{wallet.ui.name}</div>
             <Space>
               {wallet.address && wallet.chainId && (
                 <Tooltip

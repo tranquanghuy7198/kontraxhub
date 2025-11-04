@@ -254,7 +254,7 @@ export class Phantom extends Solana {
   constructor() {
     super(
       new PhantomWalletAdapter(),
-      "#8b55e7ff",
+      "#3f2768ff",
       "#c3bbff",
       "https://phantom.com/download"
     );
@@ -267,7 +267,7 @@ export class Solflare extends Solana {
   constructor() {
     super(
       new SolflareWalletAdapter(),
-      "#a4a400ff",
+      "#3f3f00ff",
       "#fcef46",
       "https://www.solflare.com/download/"
     );

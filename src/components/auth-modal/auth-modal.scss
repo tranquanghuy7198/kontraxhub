@@ -3,3 +3,11 @@
 .auth-title {
   padding: 15px 0 25px 0;
 }
+
+.cluster-filter {
+  margin-right: 5px;
+}
+
+.disabled-cluster {
+  filter: grayscale(100%);
+}

@@ -142,6 +142,7 @@ const MainLayout: React.FC<{
             <WalletCard
               key={key}
               wallet={wallet}
+              disabled={false}
               onWalletUpdate={async () => {}}
             />
           ))}

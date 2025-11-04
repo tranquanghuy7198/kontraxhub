@@ -10,8 +10,9 @@ import "./wallet.scss";
 
 const WalletCard: React.FC<{
   wallet: Wallet;
+  disabled: boolean;
   onWalletUpdate: (wallet: Wallet) => Promise<void>;
-}> = ({ wallet, onWalletUpdate }) => {
+}> = ({ wallet, onWalletUpdate, disabled }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [notification, contextHolder] = useNotification();
   const dispatch = useAppDispatch();
@@ -42,8 +43,9 @@ const WalletCard: React.FC<{
     <>
       {contextHolder}
       <Card
-        hoverable
-        className={`wallet-card ${loading ? "loading" : ""}`}
+        className={`wallet-card ${loading ? "loading" : ""}  ${
+          disabled ? "disabled" : ""
+        }`}
         size="small"
         onClick={() => connectWallet(wallet)}
         style={

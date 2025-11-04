@@ -14,7 +14,7 @@ export enum NetworkCluster {
   FlowChain = "flowchain",
 }
 
-export const NetworkClusterIcon = (networkCluster: NetworkCluster): string => {
+export const networkClusterIcon = (networkCluster: NetworkCluster): string => {
   return {
     [NetworkCluster.Ethereum]: "https://i.ibb.co/wZsCSP9F/ic-ethereum.png",
     [NetworkCluster.Klaytn]: "https://i.ibb.co/MD3Nj0sm/ic-klaytn.png",

@@ -3,7 +3,7 @@
 .wallet-card {
   width: 100%;
   height: min-content;
-  border: none;
+  cursor: pointer;
 }
 
 .wallet-card.loading {
@@ -78,4 +78,14 @@
 
 .wallet-info {
   font-size: 12px;
+}
+
+.disabled {
+  filter: grayscale(100%);
+  color: $description;
+  cursor: not-allowed;
+  background: none;
+  &:hover {
+    background: none;
+  }
 }

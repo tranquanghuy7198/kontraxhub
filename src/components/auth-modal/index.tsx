@@ -12,9 +12,7 @@ import { NetworkCluster, networkClusterIcon } from "@utils/constants";
 
 const AuthModal: React.FC = () => {
   const wallets = useAppSelector((state) => state.wallet.wallets);
-  const [selectedClusters, setSelectedClusters] = useState<NetworkCluster[]>(
-    Object.values(NetworkCluster)
-  );
+  const [selectedCluster, setSelectedCluster] = useState<NetworkCluster>();
   const [session, setSession] = useLocalStorageState<Session | null>(AUTH_KEY, {
     defaultValue: null,
   });
@@ -42,9 +40,12 @@ const AuthModal: React.FC = () => {
   };
 
   const filterCluster = (cluster: NetworkCluster) => {
-    if (selectedClusters.includes(cluster))
-      setSelectedClusters(selectedClusters.filter((c) => c !== cluster));
-    else setSelectedClusters([...selectedClusters, cluster]);
+    setSelectedCluster(selectedCluster === cluster ? undefined : cluster);
+  };
+
+  const isClusterSelected = (cluster: NetworkCluster): boolean => {
+    if (!selectedCluster) return true;
+    return selectedCluster === cluster;
   };
 
   return (
@@ -61,7 +62,7 @@ const AuthModal: React.FC = () => {
           <WalletCard
             key={key}
             wallet={wallet}
-            disabled={!selectedClusters.includes(wallet.networkCluster)}
+            disabled={!isClusterSelected(wallet.networkCluster)}
             onWalletUpdate={onWalletUpdate}
           />
         ))}
@@ -74,9 +75,7 @@ const AuthModal: React.FC = () => {
               preview={false}
               onClick={() => filterCluster(networkCluster)}
               className={`chain-icon ${
-                !selectedClusters.includes(networkCluster)
-                  ? "disabled-cluster"
-                  : ""
+                !isClusterSelected(networkCluster) ? "disabled-cluster" : ""
               }`}
             />
           ))}

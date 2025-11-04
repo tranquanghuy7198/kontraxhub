@@ -1,7 +1,3 @@
-import { Flex, Image, Modal } from "antd";
-import React, { useState } from "react";
-import "./auth-modal.scss";
-
 import { useAppSelector } from "@redux/hook";
 import WalletCard from "@components/wallet";
 import useLocalStorageState from "use-local-storage-state";
@@ -9,6 +5,10 @@ import { AUTH_KEY, Session } from "@hooks/auth";
 import { Wallet } from "@utils/wallets/wallet";
 import { authWithWallet, requestChallenge } from "@api/auth";
 import { NetworkCluster, networkClusterIcon } from "@utils/constants";
+import { capitalize } from "@utils/utils";
+import { Flex, Image, Modal, Tooltip } from "antd";
+import React, { useState } from "react";
+import "./auth-modal.scss";
 
 const AuthModal: React.FC = () => {
   const wallets = useAppSelector((state) => state.wallet.wallets);
@@ -69,15 +69,17 @@ const AuthModal: React.FC = () => {
         <Flex gap={5}>
           <div className="description cluster-filter">Filter by</div>
           {Object.values(NetworkCluster).map((networkCluster) => (
-            <Image
-              key={networkCluster}
-              src={networkClusterIcon(networkCluster)}
-              preview={false}
-              onClick={() => filterCluster(networkCluster)}
-              className={`chain-icon ${
-                !isClusterSelected(networkCluster) ? "disabled-cluster" : ""
-              }`}
-            />
+            <Tooltip title={capitalize(networkCluster)}>
+              <Image
+                key={networkCluster}
+                src={networkClusterIcon(networkCluster)}
+                preview={false}
+                onClick={() => filterCluster(networkCluster)}
+                className={`chain-icon ${
+                  !isClusterSelected(networkCluster) ? "disabled-cluster" : ""
+                }`}
+              />
+            </Tooltip>
           ))}
         </Flex>
       </Flex>

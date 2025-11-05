@@ -86,7 +86,7 @@ export class MetaMask extends Wallet {
     };
   }
 
-  public async switchChain(blockchain?: Blockchain) {
+  private async switchChain(blockchain?: Blockchain) {
     const { chainId } = await this.provider!.getNetwork();
     const chainIdStr = "0x" + chainId.toString(16);
     if (blockchain && chainIdStr !== blockchain.chainId) {

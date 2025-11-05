@@ -70,6 +70,7 @@ export const checkWalletStatus = async (
 export const linkWallet = async (
   accessToken: string,
   address: string,
+  chainId: string,
   timestamp: number,
   nonce: string,
   signature: string,
@@ -78,7 +79,7 @@ export const linkWallet = async (
   await makeRequest(
     "/token/link/wallet",
     "POST",
-    { address, timestamp, nonce, signature, networkCluster },
+    { address, chainId, timestamp, nonce, signature, networkCluster },
     accessToken
   );
 };

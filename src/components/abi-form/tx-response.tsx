@@ -53,10 +53,16 @@ const TransactionResult: React.FC<{
         wallet.verificationKey,
         wallet.chainId! // Chain ID must be available after connecting wallet
       );
-      const signature = await wallet.signMessage(challenge, nonce);
+      const signature = await wallet.signMessage(
+        challenge,
+        nonce,
+        timestamp,
+        expiration
+      );
       await callAuthenticatedApi(
         linkWallet,
         wallet.verificationKey,
+        wallet.chainId!, // Chain ID must be available after connecting wallet
         timestamp,
         nonce,
         signature,

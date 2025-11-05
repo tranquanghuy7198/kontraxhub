@@ -5,6 +5,7 @@ import { Phantom, Solflare } from "@utils/wallets/solana/solana";
 import { Slush } from "@utils/wallets/sui/sui";
 import { Petra } from "@utils/wallets/aptos/aptos";
 import { KeplrWallet } from "@utils/wallets/cosmos/keplr";
+import { Ronin } from "@utils/wallets/ronin/ronin";
 
 interface WalletState {
   wallets: Record<string, Wallet>;
@@ -14,6 +15,7 @@ const initialState: WalletState = {
   wallets: Object.fromEntries(
     [
       new MetaMask(),
+      new Ronin(),
       new Phantom(),
       new Solflare(),
       new Slush(),

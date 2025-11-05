@@ -42,8 +42,13 @@ export class Wallet {
     throw new Error("Method not implemented.");
   }
 
-  public async signMessage(message: string, nonce?: string): Promise<string> {
-    console.log(message, nonce);
+  public async signMessage(
+    message: string,
+    nonce?: string,
+    timestamp?: number,
+    expiration?: number
+  ): Promise<string> {
+    console.log(message, nonce, timestamp, expiration);
     throw new Error("Method not implemented.");
   }
 

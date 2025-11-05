@@ -23,7 +23,12 @@ const AuthModal: React.FC = () => {
       wallet.verificationKey,
       wallet.chainId! // Chain ID must be available after connecting wallet
     );
-    const signature = await wallet.signMessage(challenge, nonce);
+    const signature = await wallet.signMessage(
+      challenge,
+      nonce,
+      timestamp,
+      expiration
+    );
     const authResponse = await authWithWallet(
       wallet.verificationKey,
       wallet.chainId!, // Chain ID must be available after connecting wallet

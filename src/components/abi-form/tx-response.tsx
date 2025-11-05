@@ -49,12 +49,14 @@ const TransactionResult: React.FC<{
       setLoading(true);
       if (!wallet) throw new Error(`Cannot connect wallet`);
       await wallet.connect(blockchain);
-      const key = wallet.verificationKey;
-      const [timestamp, nonce, challenge] = await requestChallenge(key);
+      const [timestamp, expiration, nonce, challenge] = await requestChallenge(
+        wallet.verificationKey,
+        wallet.chainId! // Chain ID must be available after connecting wallet
+      );
       const signature = await wallet.signMessage(challenge, nonce);
       await callAuthenticatedApi(
         linkWallet,
-        key,
+        wallet.verificationKey,
         timestamp,
         nonce,
         signature,

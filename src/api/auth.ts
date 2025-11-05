@@ -23,14 +23,15 @@ export const refresh = async (refreshToken: string): Promise<AuthResponse> => {
 };
 
 export const requestChallenge = async (
-  address: string
-): Promise<[number, string, string]> => {
-  const { timestamp, nonce, challenge } = await makeRequest(
+  address: string,
+  chainId: string
+): Promise<[number, number, string, string]> => {
+  const { timestamp, expiration, nonce, challenge } = await makeRequest(
     "/token/challenge",
     "POST",
-    { address }
+    { address, chainId }
   );
-  return [timestamp, nonce, challenge];
+  return [timestamp, expiration, nonce, challenge];
 };
 
 export const authWithWallet = async (

@@ -36,6 +36,7 @@ export const requestChallenge = async (
 
 export const authWithWallet = async (
   address: string,
+  chainId: string,
   timestamp: number,
   nonce: string,
   signature: string,
@@ -44,6 +45,7 @@ export const authWithWallet = async (
   return await makeRequest("/token", "POST", {
     grant_type: AuthMethod.Wallet,
     wallet_address: address,
+    chain_id: chainId,
     timestamp,
     nonce,
     signature,

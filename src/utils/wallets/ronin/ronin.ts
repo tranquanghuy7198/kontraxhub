@@ -1,6 +1,6 @@
 import { Wallet } from "@utils/wallets/wallet";
 import RoninIcon from "@assets/wallets/ronin.svg";
-import { Blockchain, NetworkCluster } from "@utils/constants";
+import { Blockchain, NetworkCluster, TxResponse } from "@utils/constants";
 import {
   ConnectorError,
   ConnectorErrorType,
@@ -8,7 +8,8 @@ import {
   RoninWalletConnector,
 } from "@sky-mavis/tanto-connect";
 import { SiweMessage } from "siwe";
-import { getAddress } from "ethers";
+import { ContractFactory, ethers, getAddress } from "ethers";
+import { EthereumExtra } from "@utils/wallets/ethereum/utils";
 
 export class Ronin extends Wallet {
   public key: string = "RONIN";
@@ -72,5 +73,37 @@ export class Ronin extends Wallet {
       method: "personal_sign",
       params: [siweMessage.toMessage(), this.address],
     });
+  }
+
+  public async deploy(
+    blockchain: Blockchain,
+    abi: any,
+    bytecode: string,
+    args: any[],
+    extra: EthereumExtra
+  ): Promise<TxResponse> {
+    await this.connect(blockchain);
+    const provider = await this.connector!.getProvider();
+    const browserProvider = new ethers.BrowserProvider(provider, "any");
+    const signer = await browserProvider.getSigner();
+    const factory = new ContractFactory(abi, bytecode, signer);
+    const contract = await factory.deploy(
+      ...args,
+      extra.payment ? { value: extra.payment } : {}
+    );
+    await contract.waitForDeployment();
+    return {
+      contractAddresses: [
+        {
+          blockchainId: blockchain.id,
+          address:
+            typeof contract.target === "string"
+              ? contract.target
+              : await contract.target.getAddress(),
+          publicity: false,
+        },
+      ],
+      txHash: contract.deploymentTransaction()?.hash,
+    };
   }
 }

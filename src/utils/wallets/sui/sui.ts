@@ -76,6 +76,7 @@ export class Slush extends Wallet {
       account.chains.includes(blockchain.chainId as unknown as IdentifierString)
     )
       this.chainId = blockchain.chainId;
+    else this.chainId = "--";
   }
 
   public async signMessage(message: string): Promise<string> {

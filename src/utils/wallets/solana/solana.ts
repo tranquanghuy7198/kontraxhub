@@ -56,7 +56,7 @@ class Solana extends Wallet {
       );
     await this.provider.connect();
     this.address = this.provider.publicKey?.toString();
-    if (blockchain) this.chainId = blockchain.chainId;
+    this.chainId = blockchain?.chainId || "--";
   }
 
   public async signMessage(message: string): Promise<string> {

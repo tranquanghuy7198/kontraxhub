@@ -83,6 +83,7 @@ export class AptosWallet extends Wallet {
     this.publicKey = result.args.publicKey.toString();
     if (blockchain && this.adapter.chains.includes(`aptos:${network}`))
       this.chainId = network;
+    else this.chainId = "--";
   }
 
   public async signMessage(message: string, nonce?: string): Promise<string> {

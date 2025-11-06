@@ -40,6 +40,10 @@ const AbiWalletForm: React.FC<{
     const wallet =
       defaultWallet && defaultWallet in wallets
         ? wallets[defaultWallet]
+        : selectedChain
+        ? Object.values(wallets).find(
+            (w) => w.networkCluster === selectedChain.networkCluster
+          )
         : Object.values(wallets).find((w) =>
             networkClusters.includes(w.networkCluster)
           );

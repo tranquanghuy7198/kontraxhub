@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MetaMask } from "@utils/wallets/ethereum/metamask";
+import { MetaMask, Ronin } from "@utils/wallets/ethereum/evm";
 import { Wallet } from "@utils/wallets/wallet";
 import { Phantom, Solflare } from "@utils/wallets/solana/solana";
 import { Slush } from "@utils/wallets/sui/sui";
 import { Petra } from "@utils/wallets/aptos/aptos";
 import { KeplrWallet } from "@utils/wallets/cosmos/keplr";
-import { Ronin } from "@utils/wallets/ronin/ronin";
 
 interface WalletState {
   wallets: Record<string, Wallet>;

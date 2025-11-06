@@ -203,7 +203,7 @@ export class Ronin extends EvmWallet {
         name: "Ronin",
         icon: RoninIcon,
         backgroundColor: "#073164ff",
-        titleColor: "#aff3ffff",
+        titleColor: "#1273EA",
       },
       "https://wallet.roninchain.com",
       NetworkCluster.Ronin

@@ -17,13 +17,23 @@ import {
 import SuperJSON from "superjson";
 import { AptosCompiledBytecode } from "@utils/wallets/aptos/utils";
 
-const APTOS_NETWORKS: Record<Network, number> = {
-  mainnet: 1,
-  testnet: 2,
-  devnet: 10,
-  shelbynet: 1990,
-  local: 204,
-  custom: 204,
+const getNetworkName = (chainId: number): Network => {
+  switch (chainId) {
+    case 1:
+      return "mainnet" as Network;
+    case 2:
+      return "testnet" as Network;
+    case 3:
+      return "devnet" as Network;
+    case 4:
+      return "shelbynet" as Network;
+    case 5:
+      return "local" as Network;
+    case 1337:
+      return "custom" as Network;
+    default:
+      throw new Error(`Unsupported Aptos chain ID: ${chainId}`);
+  }
 };
 
 export class AptosWallet extends Wallet {
@@ -72,18 +82,17 @@ export class AptosWallet extends Wallet {
     }
 
     // Now connect
-    const network = blockchain ? (blockchain.chainId as Network) : undefined;
+    const network = blockchain ? parseInt(blockchain.chainId) : undefined;
     const result = await this.adapter.features["aptos:connect"].connect(
       true,
-      network ? { name: network, chainId: APTOS_NETWORKS[network] } : undefined
+      network ? { name: getNetworkName(network), chainId: network } : undefined
     );
     if (result.status === "Rejected")
       throw new Error("User rejected connection");
     this.address = result.args.address.toString();
     this.publicKey = result.args.publicKey.toString();
-    if (blockchain && this.adapter.chains.includes(`aptos:${network}`))
-      this.chainId = network;
-    else this.chainId = "--";
+    const networkInfo = await this.adapter.features["aptos:network"].network();
+    this.chainId = networkInfo.chainId.toString();
   }
 
   public async signMessage(message: string, nonce?: string): Promise<string> {
@@ -91,7 +100,13 @@ export class AptosWallet extends Wallet {
     await this.connect();
     const result = await this.adapter!.features[
       "aptos:signMessage"
-    ].signMessage({ address: true, application: true, message, nonce });
+    ].signMessage({
+      address: true,
+      application: true,
+      chainId: true,
+      message,
+      nonce,
+    });
     if (result.status === "Rejected")
       throw new Error("User rejected signature");
     return result.args.signature.toString();

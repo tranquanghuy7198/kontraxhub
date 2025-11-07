@@ -148,9 +148,9 @@ const ContractTemplates: React.FC = () => {
           programKeypair: template.programKeypair
             ? JSON.stringify(template.programKeypair)
             : undefined,
-          networkClusters: template.networkClusters.map((cluster) =>
-            cluster.toString()
-          ),
+          networkClusters: Array.from(new Set(template.networkClusters)).map(
+            (cluster) => cluster.toString()
+          ), // de-duplicate
         },
       });
   };

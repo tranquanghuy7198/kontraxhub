@@ -1,10 +1,10 @@
 import { Flex, Image, Space } from "antd";
-import React from "react";
+import React, { memo } from "react";
 import logo from "@assets/logo.png";
 import { DOC_URL } from "@docs/index";
 import "./main-layout.scss";
 
-const Logo: React.FC = () => {
+const Logo: React.FC = memo(() => {
   return (
     <Flex
       align="center"
@@ -20,6 +20,6 @@ const Logo: React.FC = () => {
       </Space>
     </Flex>
   );
-};
+});
 
 export default Logo;

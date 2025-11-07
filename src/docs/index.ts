@@ -1,7 +1,7 @@
 import { NetworkCluster } from "@utils/constants";
 import urlJoin from "url-join";
 
-const DOC_URL = "https://tranquanghuy7198.github.io/kontraxhub-doc/docs";
+export const DOC_URL = "https://tranquanghuy7198.github.io/kontraxhub-doc";
 
 export enum DocType {
   AbiBytecode = "generate-abi-bytecode",
@@ -9,5 +9,5 @@ export enum DocType {
 }
 
 export const docUrl = (networkCluster: NetworkCluster, docType: DocType) => {
-  return urlJoin(DOC_URL, networkCluster, docType);
+  return urlJoin(DOC_URL, "docs", networkCluster, docType);
 };

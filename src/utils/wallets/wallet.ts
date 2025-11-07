@@ -102,15 +102,4 @@ export class Wallet {
     console.log(blockchain, contractAddress, abi, method, args, extra);
     throw new Error("Method not implemented.");
   }
-
-  public clone(): Wallet {
-    let newWallet = new Wallet({
-      ui: this.ui,
-      installLink: this.installLink,
-      networkCluster: this.networkCluster,
-    });
-    newWallet.key = this.key;
-    newWallet.address = this.address;
-    return newWallet;
-  }
 }

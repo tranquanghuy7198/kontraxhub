@@ -184,13 +184,6 @@ export class MetaMask extends EvmWallet {
       this.chainId = blockchain.chainId;
     } else this.chainId = chainIdStr;
   }
-
-  public clone(): Wallet {
-    let newWallet = super.clone() as MetaMask;
-    newWallet.inject = this.inject;
-    newWallet.provider = this.provider;
-    return newWallet;
-  }
 }
 
 export class Ronin extends EvmWallet {

@@ -195,7 +195,7 @@ const ContractTemplateForm: React.FC<{
         </>
       )}
       {(networkClusters || []).some((networkCluster) =>
-        [NetworkCluster.Ethereum, NetworkCluster.Ronin, NetworkCluster.Kaia]
+        [NetworkCluster.Ethereum, NetworkCluster.Ronin]
           .map((cluster) => cluster.toString())
           .includes(networkCluster)
       ) && (

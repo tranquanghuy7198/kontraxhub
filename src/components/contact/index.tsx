@@ -4,10 +4,10 @@ import {
   GoogleOutlined,
   LinkedinFilled,
 } from "@ant-design/icons";
-import React from "react";
+import React, { memo } from "react";
 import "./contact.scss";
 
-const ProductContact: React.FC = () => {
+const ProductContact: React.FC = memo(() => {
   return (
     <div className="about-product">
       <DiscordFilled
@@ -31,6 +31,6 @@ const ProductContact: React.FC = () => {
       />
     </div>
   );
-};
+});
 
 export default ProductContact;

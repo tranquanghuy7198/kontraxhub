@@ -12,7 +12,6 @@ import {
 import {
   AlignLeftOutlined,
   AppstoreFilled,
-  FileTextFilled,
   SearchOutlined,
   StarFilled,
   WalletOutlined,
@@ -37,19 +36,26 @@ type MenuItem = Required<MenuProps>["items"][number];
 // NOTE: Keys should match with paths in App.tsx
 const items: MenuItem[] = [
   {
-    key: BLOCKCHAINS,
-    label: "Blockchains",
-    icon: <AppstoreFilled />,
-  },
-  {
-    key: POPULAR_CONTRACTS,
-    label: "Popular Contracts",
-    icon: <StarFilled />,
+    key: "/popular",
+    label: "Popular",
+    type: "group",
+    children: [
+      {
+        key: BLOCKCHAINS,
+        label: "Blockchains",
+        icon: <AppstoreFilled />,
+      },
+      {
+        key: POPULAR_CONTRACTS,
+        label: "Popular Contracts",
+        icon: <StarFilled />,
+      },
+    ],
   },
   {
     key: "/my-contracts",
     label: "My Contracts",
-    icon: <FileTextFilled />,
+    type: "group",
     children: [
       {
         key: MY_TEMPLATES,

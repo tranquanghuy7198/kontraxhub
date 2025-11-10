@@ -16,7 +16,14 @@ const ContractInteraction: React.FC<{
   address?: ContractAddress;
   blockchain?: Blockchain;
   onClose: () => void;
-}> = ({ open, defaultAction, template, address, blockchain, onClose }) => {
+}> = ({
+  open,
+  defaultAction = AbiAction.Read,
+  template,
+  address,
+  blockchain,
+  onClose,
+}) => {
   return (
     <Drawer
       width={700}
@@ -39,7 +46,7 @@ const ContractInteraction: React.FC<{
       {template && (
         <AbiForm
           contractAddress={address}
-          defaultAction={defaultAction || AbiAction.Read}
+          defaultAction={defaultAction}
           contractTemplate={template}
         />
       )}

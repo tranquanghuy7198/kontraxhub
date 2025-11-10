@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./contract-templates.scss";
-import { ContractTemplate, NetworkCluster } from "@utils/constants";
+import { AbiAction, ContractTemplate, NetworkCluster } from "@utils/constants";
 import Header from "@components/header";
 import ContractTemplateCard from "@components/contract-template-card";
 import { capitalize } from "@utils/utils";
@@ -26,6 +26,7 @@ import {
 } from "@hooks/contract";
 import AuthModal from "@components/auth-modal";
 import MainLayout from "@components/main-layout";
+import ContractInteraction from "@components/contract-interaction";
 
 const ContractTemplates: React.FC = () => {
   const [notification, contextHolder] = useNotification();
@@ -43,6 +44,10 @@ const ContractTemplates: React.FC = () => {
   const { fetchContracts } = useFetchMyContracts();
   const { fetchPopularContracts } = useFetchPopularContracts();
   const { callAuthenticatedApi } = useAuth();
+  const [deployTemplate, setDeployTemplate] = useState<{
+    open: boolean;
+    template?: ContractTemplate;
+  }>({ open: false });
 
   useEffect(() => {
     setDisplayedTemplates(
@@ -132,27 +137,24 @@ const ContractTemplates: React.FC = () => {
     }
   };
 
-  const editContractTemplate = (id: string) => {
-    const template = templates.find((template) => template.id === id);
-    if (!template) notification.error({ message: "Template not found" });
-    else
-      setTemplateForm({
-        open: true,
-        form: {
-          id: template.id,
-          name: template.name,
-          abi: JSON.stringify(template.abi),
-          desscription: template.description,
-          bytecode: template.bytecode,
-          flattenSource: template.flattenSource,
-          programKeypair: template.programKeypair
-            ? JSON.stringify(template.programKeypair)
-            : undefined,
-          networkClusters: Array.from(new Set(template.networkClusters)).map(
-            (cluster) => cluster.toString()
-          ), // de-duplicate
-        },
-      });
+  const editContractTemplate = (template: ContractTemplate) => {
+    setTemplateForm({
+      open: true,
+      form: {
+        id: template.id,
+        name: template.name,
+        abi: JSON.stringify(template.abi),
+        desscription: template.description,
+        bytecode: template.bytecode,
+        flattenSource: template.flattenSource,
+        programKeypair: template.programKeypair
+          ? JSON.stringify(template.programKeypair)
+          : undefined,
+        networkClusters: Array.from(new Set(template.networkClusters)).map(
+          (cluster) => cluster.toString()
+        ), // de-duplicate
+      },
+    });
   };
 
   return (
@@ -176,8 +178,9 @@ const ContractTemplates: React.FC = () => {
             <XBlock key={template.id}>
               <ContractTemplateCard
                 contractTemplate={template}
-                onDeleteTemplate={setConfirmDeleteId}
-                onEditTemplate={editContractTemplate}
+                onDeploy={() => setDeployTemplate({ open: true, template })}
+                onEdit={() => editContractTemplate(template)}
+                onDelete={() => setConfirmDeleteId(template.id)}
               />
             </XBlock>
           ))}
@@ -199,6 +202,12 @@ const ContractTemplates: React.FC = () => {
           }
         />
       </Drawer>
+      <ContractInteraction
+        open={deployTemplate.open}
+        defaultAction={AbiAction.Deploy}
+        template={deployTemplate.template}
+        onClose={() => setDeployTemplate({ ...deployTemplate, open: false })}
+      />
       <ConfirmModal
         showModal={confirmDeleteId !== undefined}
         danger

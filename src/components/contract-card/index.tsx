@@ -39,56 +39,54 @@ const ContractCard: React.FC<{
     );
 
   return (
-    <>
-      <Card className="masonry-item" hoverable actions={actions}>
-        <Flex vertical justify="stretch" gap={5}>
-          <div className="contract-name">{contract.template.name}</div>
-          {contract.template.description && (
-            <Paragraph
-              className="description"
-              ellipsis={{ rows: 4, expandable: true, symbol: "See more" }}
-            >
-              {contract.template.description}
-            </Paragraph>
-          )}
-          <div>
-            {contract.addresses.map((address) => {
-              const blockchain = blockchains.find(
-                (chain) => chain.id === address.blockchainId
-              );
-              return (
-                <Flex
-                  key={`${address.blockchainId}-${address.address}-${address.module}`}
-                  align="center"
-                  gap={10}
-                  className="contract-address"
-                  onClick={() => onInteract(contract.template, address)}
-                >
-                  <Tooltip title={blockchain?.name ?? "Unknown blockchain"}>
-                    {blockchain ? (
-                      <img
-                        src={blockchain.logo}
-                        className={
-                          blockchain.isTestnet
-                            ? "chain-icon-testnet"
-                            : "chain-icon"
-                        }
-                      />
-                    ) : (
-                      <QuestionCircleFilled />
-                    )}
-                  </Tooltip>
-                  <a>
-                    {address.module || shorten(address.address)}{" "}
-                    <ExportOutlined />
-                  </a>
-                </Flex>
-              );
-            })}
-          </div>
-        </Flex>
-      </Card>
-    </>
+    <Card className="masonry-item" hoverable actions={actions}>
+      <Flex vertical justify="stretch" gap={5}>
+        <div className="contract-name">{contract.template.name}</div>
+        {contract.template.description && (
+          <Paragraph
+            className="description"
+            ellipsis={{ rows: 4, expandable: true, symbol: "See more" }}
+          >
+            {contract.template.description}
+          </Paragraph>
+        )}
+        <div>
+          {contract.addresses.map((address) => {
+            const blockchain = blockchains.find(
+              (chain) => chain.id === address.blockchainId
+            );
+            return (
+              <Flex
+                key={`${address.blockchainId}-${address.address}-${address.module}`}
+                align="center"
+                gap={10}
+                className="contract-address"
+                onClick={() => onInteract(contract.template, address)}
+              >
+                <Tooltip title={blockchain?.name ?? "Unknown blockchain"}>
+                  {blockchain ? (
+                    <img
+                      src={blockchain.logo}
+                      className={
+                        blockchain.isTestnet
+                          ? "chain-icon-testnet"
+                          : "chain-icon"
+                      }
+                    />
+                  ) : (
+                    <QuestionCircleFilled />
+                  )}
+                </Tooltip>
+                <a>
+                  {address.module || shorten(address.address)}{" "}
+                  <ExportOutlined />
+                </a>
+              </Flex>
+            );
+          })}
+        </div>
+      </Flex>
+    </Card>
   );
 });
 

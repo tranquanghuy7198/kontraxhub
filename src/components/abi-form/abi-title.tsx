@@ -1,4 +1,4 @@
-import { Space, Typography } from "antd";
+import { Flex, Typography } from "antd";
 import React from "react";
 import { shorten } from "@utils/utils";
 import { ADDRESS_PATTERN, Blockchain } from "@utils/constants";
@@ -12,7 +12,7 @@ const AbiTitle: React.FC<{
   blockchain?: Blockchain;
 }> = ({ name, address, module, blockchain }) => {
   return (
-    <Space>
+    <Flex align="center" gap="small">
       {name}
       <img className="chain-icon" src={blockchain?.logo} />
       <a
@@ -23,7 +23,7 @@ const AbiTitle: React.FC<{
         {module || shorten(address)} <ExportOutlined />
       </a>
       <Typography.Text copyable={{ text: address }} />
-    </Space>
+    </Flex>
   );
 };
 

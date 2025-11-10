@@ -1,0 +1,23 @@
+@use "../../styles.scss" as *;
+
+.loading-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.logo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-logo {
+  width: 80px !important;
+  height: 80px !important;
+  object-fit: contain;
+}

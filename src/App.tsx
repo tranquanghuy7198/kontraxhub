@@ -11,6 +11,7 @@ import {
   MY_TEMPLATES,
   POPULAR_CONTRACTS,
 } from "@utils/routes";
+import LoadingPage from "@pages/loading";
 
 const Blockchains = lazy(() => import("@pages/blockchains"));
 const TrendingContracts = lazy(() => import("@pages/trending-contracts"));
@@ -31,7 +32,7 @@ const App: React.FC = () => {
     >
       <Provider store={store}>
         <HashRouter>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<LoadingPage />}>
             <Routes>
               <Route path="/" element={<Navigate to={BLOCKCHAINS} replace />} />
               <Route path={BLOCKCHAINS} element={<Blockchains />} />

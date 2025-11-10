@@ -55,6 +55,7 @@ const WalletCard: React.FC<{
             "--wallet-border": loading
               ? "transparent"
               : wallet.ui.backgroundColor,
+            "--border-color": wallet.ui.titleColor,
           } as React.CSSProperties
         }
       >

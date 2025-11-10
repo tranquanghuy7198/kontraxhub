@@ -16,7 +16,7 @@
     conic-gradient(
         from var(--border-angle),
         hsl(190deg 20% 10%) 50%,
-        var(--wallet-bg)
+        var(--border-color)
       )
       border-box;
 }

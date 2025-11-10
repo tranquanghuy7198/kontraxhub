@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./contract-template-card.scss";
 import { ContractTemplate } from "@utils/constants";
 import { Avatar, Card, Flex, Space, Tooltip } from "antd";
@@ -18,7 +18,7 @@ const ContractTemplateCard: React.FC<{
   onDeploy: () => void;
   onEdit: () => void;
   onDelete: () => void;
-}> = ({ contractTemplate, onDeploy, onEdit, onDelete }) => {
+}> = memo(({ contractTemplate, onDeploy, onEdit, onDelete }) => {
   const { blockchains } = useFetchBlockchains();
 
   return (
@@ -109,6 +109,6 @@ const ContractTemplateCard: React.FC<{
       </Flex>
     </Card>
   );
-};
+});
 
 export default ContractTemplateCard;

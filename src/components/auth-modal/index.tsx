@@ -57,7 +57,7 @@ const AuthModal: React.FC = () => {
   };
 
   return (
-    <Modal centered open={!session} footer={null} width={450}>
+    <Modal centered open={!session} closeIcon={null} footer={null} width={450}>
       <Flex vertical gap={10} align="center" justify="stretch">
         <Flex vertical align="center" gap={10} className="auth-title">
           <div className="primary-title">Connect Wallet</div>

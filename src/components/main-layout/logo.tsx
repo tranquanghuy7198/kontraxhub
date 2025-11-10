@@ -1,4 +1,4 @@
-import { Flex, Image, Space } from "antd";
+import { Flex, Space } from "antd";
 import React, { memo } from "react";
 import logo from "@assets/logo.png";
 import { DOC_URL } from "@docs/index";
@@ -13,7 +13,7 @@ const Logo: React.FC = memo(() => {
       className="profile-logo-container"
       onClick={() => window.open(DOC_URL)}
     >
-      <Image src={logo} preview={false} className="profile-logo" />
+      <img src={logo} className="profile-logo" />
       <Space align="baseline" size={3}>
         <div className="logo-title-left">KONTRAX</div>
         <div className="logo-title-right">HUB</div>

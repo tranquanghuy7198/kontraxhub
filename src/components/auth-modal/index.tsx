@@ -6,7 +6,7 @@ import { Wallet } from "@utils/wallets/wallet";
 import { authWithWallet, requestChallenge } from "@api/auth";
 import { NetworkCluster, networkClusterIcon } from "@utils/constants";
 import { capitalize } from "@utils/utils";
-import { Flex, Image, Modal, Tooltip } from "antd";
+import { Flex, Modal, Tooltip } from "antd";
 import React, { useState } from "react";
 import "./auth-modal.scss";
 
@@ -78,10 +78,9 @@ const AuthModal: React.FC = () => {
           <div className="description cluster-filter">Filter by</div>
           {Object.values(NetworkCluster).map((networkCluster) => (
             <Tooltip title={capitalize(networkCluster)}>
-              <Image
+              <img
                 key={networkCluster}
                 src={networkClusterIcon(networkCluster)}
-                preview={false}
                 onClick={() => filterCluster(networkCluster)}
                 className={`chain-icon ${
                   !isClusterSelected(networkCluster) ? "disabled-cluster" : ""

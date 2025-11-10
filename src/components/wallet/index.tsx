@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Wallet } from "@utils/wallets/wallet";
-import { Card, Image } from "antd";
+import { Card } from "antd";
 import { shorten } from "@utils/utils";
 import useNotification from "antd/es/notification/useNotification";
 import Paragraph from "antd/es/typography/Paragraph";
@@ -59,7 +59,7 @@ const WalletCard: React.FC<{
         }
       >
         <div className="wallet-card-content">
-          <Image className="wallet-logo" preview={false} src={wallet.ui.icon} />
+          <img className="wallet-logo" src={wallet.ui.icon} />
           <div className="wallet-title">
             <div className="wallet-name">{wallet.ui.name}</div>
             {wallet.address && (

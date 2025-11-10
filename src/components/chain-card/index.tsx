@@ -4,7 +4,7 @@ import {
   ExportOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { Card, Image, Tooltip } from "antd";
+import { Card, Tooltip } from "antd";
 import "./blockchain-card.scss";
 import React, { memo } from "react";
 import { Blockchain } from "@utils/constants";
@@ -33,11 +33,7 @@ const BlockchainCard: React.FC<{ blockchain: Blockchain }> = memo(
         ]}
       >
         <div className="blockchain-card-content">
-          <Image
-            className="blockchain-logo"
-            src={blockchain.logo}
-            preview={false}
-          />
+          <img className="blockchain-logo" src={blockchain.logo} />
           <div>
             <div className="blockchain-title">
               <div className="blockchain-name">{blockchain.name}</div>

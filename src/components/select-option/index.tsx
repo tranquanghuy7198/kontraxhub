@@ -1,4 +1,4 @@
-import { Image, Space } from "antd";
+import { Flex } from "antd";
 import React from "react";
 import "./select-option.scss";
 
@@ -7,10 +7,10 @@ const SelectOption: React.FC<{ icon: string; label: React.ReactNode }> = ({
   label,
 }) => {
   return (
-    <Space align="center">
-      <Image src={icon} className="select-icon" preview={false} />
+    <Flex align="center" gap="small">
+      <img src={icon} className="chain-icon" />
       <div>{label}</div>
-    </Space>
+    </Flex>
   );
 };
 

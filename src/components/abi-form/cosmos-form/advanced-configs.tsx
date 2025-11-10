@@ -117,8 +117,13 @@ const AdvancedCosmosConfigs: React.FC<{
                               />
                             </Space>
                           ))}
-                          <Button type="dashed" onClick={() => add()} block>
-                            <PlusOutlined /> Add Instantiator
+                          <Button
+                            type="dashed"
+                            block
+                            icon={<PlusOutlined />}
+                            onClick={() => add()}
+                          >
+                            Add Instantiator
                           </Button>
                         </Flex>
                       )}

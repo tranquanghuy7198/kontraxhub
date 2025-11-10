@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "@components/header";
 import {
-  AbiAction,
   ContractAddress,
   ContractTemplate,
   DeployedContract,
@@ -32,8 +31,7 @@ import {
   updateContractAndTemplate,
 } from "@api/contracts";
 import MainLayout from "@components/main-layout";
-import AbiTitle from "@components/abi-form/abi-title";
-import AbiForm from "@components/abi-form";
+import ContractInteraction from "@/components/contract-interaction";
 
 const Contracts: React.FC = () => {
   const [notification, contextHolder] = useNotification();
@@ -214,32 +212,15 @@ const Contracts: React.FC = () => {
           saveContract={(contract) => saveContract(parseToContract(contract))}
         />
       </Drawer>
-      <Drawer
-        width={700}
-        title={
-          selectedAddress.template && selectedAddress.address ? (
-            <AbiTitle
-              name={selectedAddress.template.name}
-              address={selectedAddress.address.address}
-              module={selectedAddress.address.module}
-              blockchain={blockchains.find(
-                (chain) => chain.id === selectedAddress.address?.blockchainId
-              )}
-            />
-          ) : undefined
-        }
+      <ContractInteraction
         open={selectedAddress.open}
-        closable={true}
-        onClose={() => setSelectedAddress({ ...selectedAddress, open: false })}
-      >
-        {selectedAddress.template && (
-          <AbiForm
-            contractAddress={selectedAddress.address}
-            defaultAction={AbiAction.Read}
-            contractTemplate={selectedAddress.template}
-          />
+        template={selectedAddress.template}
+        address={selectedAddress.address}
+        blockchain={blockchains.find(
+          (chain) => chain.id === selectedAddress.address?.blockchainId
         )}
-      </Drawer>
+        onClose={() => setSelectedAddress({ ...selectedAddress, open: false })}
+      />
       <ConfirmModal
         showModal={confirmDeleteId !== undefined}
         danger

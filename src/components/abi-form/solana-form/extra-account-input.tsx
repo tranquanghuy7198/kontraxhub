@@ -50,8 +50,13 @@ const SolanaExtraAccountInput: React.FC<{
                 />
               </Space>
             ))}
-            <Button type="dashed" onClick={() => add()} block>
-              <PlusOutlined /> Add Extra Account
+            <Button
+              type="dashed"
+              block
+              icon={<PlusOutlined />}
+              onClick={() => add()}
+            >
+              Add Extra Account
             </Button>
           </Flex>
         )}

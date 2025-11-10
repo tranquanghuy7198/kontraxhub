@@ -171,8 +171,13 @@ const ContractForm: React.FC<{
                   />
                 </Space>
               ))}
-              <Button type="dashed" onClick={() => add()} block>
-                <PlusOutlined /> Add Address
+              <Button
+                type="dashed"
+                block
+                icon={<PlusOutlined />}
+                onClick={() => add()}
+              >
+                Add Address
               </Button>
             </div>
           )}

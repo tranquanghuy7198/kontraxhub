@@ -283,11 +283,12 @@ const SolanaAdvancedInstructionForm: React.FC<{
                 })),
               }}
             >
-              <Button type="dashed" onClick={(e) => e.preventDefault()}>
-                <Space>
-                  <PlusOutlined />
-                  Add Instruction
-                </Space>
+              <Button
+                type="dashed"
+                icon={<PlusOutlined />}
+                onClick={(e) => e.preventDefault()}
+              >
+                Add Instruction
               </Button>
             </Dropdown>
           </Flex>

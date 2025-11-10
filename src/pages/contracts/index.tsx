@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "@components/header";
-import { DeployedContract, NetworkCluster } from "@utils/constants";
+import {
+  AbiAction,
+  ContractAddress,
+  ContractTemplate,
+  DeployedContract,
+  NetworkCluster,
+} from "@utils/constants";
 import ContractCard from "@components/contract-card";
 import { capitalize } from "@utils/utils";
 import { Drawer } from "antd";
@@ -26,6 +32,8 @@ import {
   updateContractAndTemplate,
 } from "@api/contracts";
 import MainLayout from "@components/main-layout";
+import AbiTitle from "@components/abi-form/abi-title";
+import AbiForm from "@components/abi-form";
 
 const Contracts: React.FC = () => {
   const [notification, contextHolder] = useNotification();
@@ -44,6 +52,11 @@ const Contracts: React.FC = () => {
     form?: ContractFormStructure;
   }>({ open: false, form: undefined });
   const [confirmDeleteId, setConfirmDeleteId] = useState<string>();
+  const [selectedAddress, setSelectedAddress] = useState<{
+    template?: ContractTemplate;
+    address?: ContractAddress;
+    open: boolean;
+  }>({ open: false });
 
   useEffect(() => {
     setDisplayedContracts(
@@ -179,8 +192,11 @@ const Contracts: React.FC = () => {
             <XBlock key={contract.template.id}>
               <ContractCard
                 contract={contract}
-                onDeleteContract={setConfirmDeleteId}
-                onEditContract={editContract}
+                onDelete={setConfirmDeleteId}
+                onEdit={editContract}
+                onInteract={(template, address) =>
+                  setSelectedAddress({ template, address, open: true })
+                }
               />
             </XBlock>
           ))}
@@ -197,6 +213,32 @@ const Contracts: React.FC = () => {
           contractForm={contractForm}
           saveContract={(contract) => saveContract(parseToContract(contract))}
         />
+      </Drawer>
+      <Drawer
+        width={700}
+        title={
+          selectedAddress.template && selectedAddress.address ? (
+            <AbiTitle
+              name={selectedAddress.template.name}
+              address={selectedAddress.address.address}
+              module={selectedAddress.address.module}
+              blockchain={blockchains.find(
+                (chain) => chain.id === selectedAddress.address?.blockchainId
+              )}
+            />
+          ) : undefined
+        }
+        open={selectedAddress.open}
+        closable={true}
+        onClose={() => setSelectedAddress({ ...selectedAddress, open: false })}
+      >
+        {selectedAddress.template && (
+          <AbiForm
+            contractAddress={selectedAddress.address}
+            defaultAction={AbiAction.Read}
+            contractTemplate={selectedAddress.template}
+          />
+        )}
       </Drawer>
       <ConfirmModal
         showModal={confirmDeleteId !== undefined}

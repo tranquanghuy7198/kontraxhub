@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./contract-template-card.scss";
 import { AbiAction, ContractTemplate } from "@utils/constants";
-import { Avatar, Card, Drawer, Flex, Space, Tooltip } from "antd";
+import { Avatar, Card, Flex, Space, Tooltip } from "antd";
 import {
   CloudUploadOutlined,
   CodeOutlined,
@@ -10,9 +10,9 @@ import {
   FieldBinaryOutlined,
   FileTextOutlined,
 } from "@ant-design/icons";
-import AbiForm from "@components/abi-form";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useFetchBlockchains } from "@hooks/blockchain";
+import ContractInteraction from "../contract-interaction";
 
 const ContractTemplateCard: React.FC<{
   contractTemplate: ContractTemplate;
@@ -112,18 +112,12 @@ const ContractTemplateCard: React.FC<{
           </Flex>
         </Flex>
       </Card>
-      <Drawer
-        width={700}
-        title={contractTemplate.name}
+      <ContractInteraction
         open={openDeploy}
-        closable={true}
+        defaultAction={AbiAction.Deploy}
+        template={contractTemplate}
         onClose={() => setOpenDeploy(false)}
-      >
-        <AbiForm
-          defaultAction={AbiAction.Deploy}
-          contractTemplate={contractTemplate}
-        />
-      </Drawer>
+      />
     </>
   );
 };

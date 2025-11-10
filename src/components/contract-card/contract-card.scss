@@ -5,20 +5,12 @@
   word-break: break-word;
 }
 
-.contract-chain {
+.chain-icon-testnet {
   @extend .chain-icon;
-  margin-top: -3px;
-}
-
-.contract-chain-testnet {
-  @extend .contract-chain;
   filter: grayscale(100%);
   opacity: 0.8;
 }
 
 .contract-address {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
   margin-top: 10px;
 }

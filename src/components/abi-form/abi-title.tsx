@@ -1,4 +1,4 @@
-import { Image, Space, Typography } from "antd";
+import { Space, Typography } from "antd";
 import React from "react";
 import { shorten } from "@utils/utils";
 import { ADDRESS_PATTERN, Blockchain } from "@utils/constants";
@@ -14,11 +14,7 @@ const AbiTitle: React.FC<{
   return (
     <Space>
       {name}
-      <Image
-        preview={false}
-        className="contract-chain"
-        src={blockchain?.logo}
-      />
+      <img className="chain-icon" src={blockchain?.logo} />
       <a
         href={blockchain?.addressUrl?.replaceAll(ADDRESS_PATTERN, address)}
         target="_blank"

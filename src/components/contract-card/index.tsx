@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { AbiAction, ContractAddress, DeployedContract } from "@utils/constants";
-import { Card, Drawer, Flex, Image, Space, Tooltip } from "antd";
+import React, { memo } from "react";
+import {
+  ContractAddress,
+  ContractTemplate,
+  DeployedContract,
+} from "@utils/constants";
+import { Card, Flex, Tooltip } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -9,52 +13,28 @@ import {
 } from "@ant-design/icons";
 import "@components/contract-card/contract-card.scss";
 import { shorten } from "@utils/utils";
-import AbiForm from "@components/abi-form";
-import AbiTitle from "@components/abi-form/abi-title";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useFetchBlockchains } from "@hooks/blockchain";
-import { useSearchParams } from "react-router-dom";
-import { buildContractHash, CONTRACT_PARAM } from "@utils/share";
 
 const ContractCard: React.FC<{
   contract: DeployedContract;
-  onDeleteContract?: (templateId: string) => void;
-  onEditContract?: (templateId: string) => void;
-}> = ({ contract, onDeleteContract, onEditContract }) => {
+  onInteract: (template: ContractTemplate, address: ContractAddress) => void;
+  onDelete?: (templateId: string) => void;
+  onEdit?: (templateId: string) => void;
+}> = memo(({ contract, onInteract, onDelete, onEdit }) => {
   const { blockchains } = useFetchBlockchains();
-  const [contractAddress, setContractAddress] = useState<ContractAddress>();
-  const [params] = useSearchParams();
-
-  useEffect(() => {
-    const contractHash = params.get(CONTRACT_PARAM);
-    for (const address of contract.addresses)
-      if (
-        buildContractHash(
-          contract.template.id,
-          address.blockchainId,
-          address.address,
-          blockchains.find((chain) => chain.id === address.blockchainId)
-            ?.networkCluster
-        ) === contractHash
-      ) {
-        setContractAddress(address);
-        break;
-      }
-  }, [params, contract]);
 
   const actions: React.ReactNode[] = [];
-  if (onEditContract)
+  if (onEdit)
     actions.push(
       <Tooltip title="Edit">
-        <EditOutlined onClick={() => onEditContract(contract.template.id)} />
+        <EditOutlined onClick={() => onEdit(contract.template.id)} />
       </Tooltip>
     );
-  if (onDeleteContract)
+  if (onDelete)
     actions.push(
       <Tooltip title="Delete">
-        <DeleteOutlined
-          onClick={() => onDeleteContract(contract.template.id)}
-        />
+        <DeleteOutlined onClick={() => onDelete(contract.template.id)} />
       </Tooltip>
     );
 
@@ -77,20 +57,21 @@ const ContractCard: React.FC<{
                 (chain) => chain.id === address.blockchainId
               );
               return (
-                <Space
+                <Flex
                   key={`${address.blockchainId}-${address.address}-${address.module}`}
+                  align="center"
+                  gap={10}
                   className="contract-address"
-                  onClick={() => setContractAddress(address)}
+                  onClick={() => onInteract(contract.template, address)}
                 >
                   <Tooltip title={blockchain?.name ?? "Unknown blockchain"}>
                     {blockchain ? (
-                      <Image
+                      <img
                         src={blockchain.logo}
-                        preview={false}
                         className={
                           blockchain.isTestnet
-                            ? "contract-chain-testnet"
-                            : "contract-chain"
+                            ? "chain-icon-testnet"
+                            : "chain-icon"
                         }
                       />
                     ) : (
@@ -101,36 +82,14 @@ const ContractCard: React.FC<{
                     {address.module || shorten(address.address)}{" "}
                     <ExportOutlined />
                   </a>
-                </Space>
+                </Flex>
               );
             })}
           </div>
         </Flex>
       </Card>
-      <Drawer
-        width={700}
-        title={
-          <AbiTitle
-            name={contract.template.name}
-            address={contractAddress?.address ?? ""}
-            module={contractAddress?.module}
-            blockchain={blockchains.find(
-              (chain) => chain.id === contractAddress?.blockchainId
-            )}
-          />
-        }
-        open={contractAddress !== undefined}
-        closable={true}
-        onClose={() => setContractAddress(undefined)}
-      >
-        <AbiForm
-          contractAddress={contractAddress}
-          defaultAction={AbiAction.Read}
-          contractTemplate={contract.template}
-        />
-      </Drawer>
     </>
   );
-};
+});
 
 export default ContractCard;

@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Header from "@components/header";
-import { DeployedContract, NetworkCluster } from "@utils/constants";
+import {
+  ContractAddress,
+  ContractTemplate,
+  DeployedContract,
+  NetworkCluster,
+} from "@utils/constants";
 import ContractCard from "@components/contract-card";
 import { capitalize } from "@utils/utils";
 import { XBlock, XMasonry } from "react-xmasonry";
 import { useFetchBlockchains } from "@hooks/blockchain";
 import { useFetchPopularContracts } from "@hooks/contract";
 import MainLayout from "@components/main-layout";
+import { useSearchParams } from "react-router-dom";
+import { buildContractHash, CONTRACT_PARAM } from "@utils/share";
+import ContractInteraction from "@components/contract-interaction";
 
 const TrendingContracts: React.FC = () => {
   const { blockchains } = useFetchBlockchains();
@@ -16,6 +24,34 @@ const TrendingContracts: React.FC = () => {
   >([]);
   const [selectedClusters, setSelectedClusters] = useState<string[]>([]);
   const [searchedName, setSearchedName] = useState<string>();
+  const [selectedAddress, setSelectedAddress] = useState<{
+    template?: ContractTemplate;
+    address?: ContractAddress;
+    open: boolean;
+  }>({ open: false });
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    const contractHash = params.get(CONTRACT_PARAM);
+    for (const contract of trendingContracts)
+      for (const address of contract.addresses)
+        if (
+          buildContractHash(
+            contract.template.id,
+            address.blockchainId,
+            address.address,
+            blockchains.find((chain) => chain.id === address.blockchainId)
+              ?.networkCluster
+          ) === contractHash
+        ) {
+          setSelectedAddress({
+            template: contract.template,
+            address,
+            open: true,
+          });
+          break;
+        }
+  }, [params, trendingContracts, blockchains]);
 
   useEffect(() => {
     setDisplayedContracts(
@@ -60,11 +96,25 @@ const TrendingContracts: React.FC = () => {
         <XMasonry center={false} targetBlockWidth={300}>
           {displayedContracts.map((contract) => (
             <XBlock key={contract.template.id}>
-              <ContractCard contract={contract} />
+              <ContractCard
+                contract={contract}
+                onInteract={(template, address) =>
+                  setSelectedAddress({ template, address, open: true })
+                }
+              />
             </XBlock>
           ))}
         </XMasonry>
       </div>
+      <ContractInteraction
+        open={selectedAddress.open}
+        template={selectedAddress.template}
+        address={selectedAddress.address}
+        blockchain={blockchains.find(
+          (chain) => chain.id === selectedAddress.address?.blockchainId
+        )}
+        onClose={() => setSelectedAddress({ ...selectedAddress, open: false })}
+      />
     </MainLayout>
   );
 };

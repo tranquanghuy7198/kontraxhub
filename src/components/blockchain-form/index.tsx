@@ -5,8 +5,8 @@ import {
   networkClusterIcon,
 } from "@utils/constants";
 import { Button, Checkbox, Form, Input, InputNumber, Select } from "antd";
-import { useForm } from "antd/es/form/Form";
-import React, { useEffect } from "react";
+import { useForm, useWatch } from "antd/es/form/Form";
+import React from "react";
 import { v4 } from "uuid";
 import SelectOption from "../select-option";
 
@@ -14,6 +14,10 @@ const BlockchainForm: React.FC<{
   blockchainForm: { open: boolean; form?: Blockchain };
 }> = ({ blockchainForm }) => {
   const [form] = useForm();
+  const networkCluster = useWatch<NetworkCluster | undefined>(
+    "networkCluster",
+    form
+  );
 
   const saveBlockchain = (blockchain: Blockchain) => {
     const blockchainId = v4();
@@ -84,8 +88,15 @@ const BlockchainForm: React.FC<{
       <Form.Item label="Native Decimal" name="nativeDecimal" required>
         <InputNumber placeholder="Native Decimal" />
       </Form.Item>
-      <Form.Item label="Bech32 Prefix" name="bech32Prefix">
-        <Input placeholder="Bech32 Prefix" />
+      <Form.Item
+        label="Bech32 Prefix"
+        name="bech32Prefix"
+        tooltip="Only available for Cosmos-based blockchains"
+      >
+        <Input
+          placeholder="Bech32 Prefix"
+          disabled={networkCluster !== NetworkCluster.Cosmos}
+        />
       </Form.Item>
       <Form.Item
         name="isTestnet"

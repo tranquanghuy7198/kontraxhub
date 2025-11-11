@@ -9,8 +9,8 @@ import "./blockchain-card.scss";
 import React, { memo } from "react";
 import { Blockchain } from "@utils/constants";
 
-const BlockchainCard: React.FC<{ blockchain: Blockchain }> = memo(
-  ({ blockchain }) => {
+const BlockchainCard: React.FC<{ blockchain: Blockchain; onEdit: () => void }> =
+  memo(({ blockchain, onEdit }) => {
     return (
       <Card
         className="masonry-item"
@@ -18,7 +18,7 @@ const BlockchainCard: React.FC<{ blockchain: Blockchain }> = memo(
         actions={[
           <SettingOutlined />,
           <Tooltip title="Edit">
-            <EditOutlined />
+            <EditOutlined onClick={onEdit} />
           </Tooltip>,
           <Tooltip title="Go to Explorer">
             <a
@@ -59,7 +59,6 @@ const BlockchainCard: React.FC<{ blockchain: Blockchain }> = memo(
         </div>
       </Card>
     );
-  }
-);
+  });
 
 export default BlockchainCard;

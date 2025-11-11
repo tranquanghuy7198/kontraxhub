@@ -14,7 +14,7 @@ import {
   Select,
 } from "antd";
 import { useForm, useWatch } from "antd/es/form/Form";
-import React from "react";
+import React, { useEffect } from "react";
 import { v4 } from "uuid";
 import SelectOption from "@components/select-option";
 import { useFetchBlockchains } from "@hooks/blockchain";
@@ -31,6 +31,10 @@ const BlockchainForm: React.FC<{
     "networkCluster",
     form
   );
+
+  useEffect(() => {
+    if (blockchainForm.open) form.resetFields();
+  }, [blockchainForm, form]);
 
   const saveBlockchain = (blockchain: Blockchain) => {
     // Fill auto fields
@@ -108,8 +112,8 @@ const BlockchainForm: React.FC<{
         <Form.Item label="Native Token" name="nativeToken" required>
           <Input placeholder="Native Token" />
         </Form.Item>
-        <Form.Item label="Native Denom" name="netiveDenom" required>
-          <Input placeholder="nativeDenom" />
+        <Form.Item label="Native Denom" name="nativeDenom" required>
+          <Input placeholder="Native Denom" />
         </Form.Item>
         <Form.Item label="Native Decimal" name="nativeDecimal" required>
           <InputNumber placeholder="Native Decimal" />

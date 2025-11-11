@@ -60,7 +60,10 @@ const Blockchains: React.FC = () => {
         <XMasonry center={false} targetBlockWidth={380}>
           {displayedBlockchains.map((blockchain) => (
             <XBlock key={blockchain.id}>
-              <BlockchainCard blockchain={blockchain} />
+              <BlockchainCard
+                blockchain={blockchain}
+                onEdit={() => setChainForm({ open: true, form: blockchain })}
+              />
             </XBlock>
           ))}
         </XMasonry>

@@ -1,5 +1,5 @@
 import { normalizeSuiAddress } from "@mysten/sui/utils";
-import { NetworkCluster } from "@utils/constants";
+import { Blockchain, NetworkCluster } from "@utils/constants";
 
 export const capitalize = (value: string): string => {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -36,4 +36,17 @@ export const normalizeAddr = (
     default:
       return address;
   }
+};
+
+export const mergeChains = (
+  initialChains: Blockchain[],
+  customChains: Blockchain[]
+): Blockchain[] => {
+  const result = [...initialChains];
+  customChains.forEach((customChain) => {
+    const index = result.findIndex((chain) => chain.id === customChain.id);
+    if (index !== -1) result[index] = customChain;
+    else result.push(customChain);
+  });
+  return result;
 };

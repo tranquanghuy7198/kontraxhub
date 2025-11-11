@@ -3,11 +3,22 @@ import { useAppDispatch, useAppSelector } from "@redux/hook";
 import { useCallback, useEffect, useState } from "react";
 import { fetchBlockchains } from "@api/blockchains";
 import { setBlockchains } from "@redux/reducers/blockchain";
+import useLocalStorageState from "use-local-storage-state";
+import { mergeChains } from "@utils/utils";
+
+const CUSTOM_BLOCKCHAINS = "custom_blockchains";
 
 export const useFetchBlockchains = () => {
   const dispatch = useAppDispatch();
   const blockchains = useAppSelector((state) => state.blockchain.blockchains);
   const [blockchainLoading, setBlockchainLoading] = useState<boolean>(false);
+  const [customBlockchains, setCustomBlockchains] = useLocalStorageState<
+    Blockchain[]
+  >(CUSTOM_BLOCKCHAINS, { defaultValue: [] });
+
+  const saveCustomBlockchain = (customBlockchain: Blockchain) => {
+    setCustomBlockchains(mergeChains(customBlockchains, [customBlockchain]));
+  };
 
   const fetchChains = useCallback(
     async (force: boolean = false): Promise<Blockchain[]> => {
@@ -16,8 +27,9 @@ export const useFetchBlockchains = () => {
       try {
         setBlockchainLoading(true);
         const chains = await fetchBlockchains();
-        dispatch(setBlockchains(chains));
-        return chains;
+        const allChains = mergeChains(chains, customBlockchains);
+        dispatch(setBlockchains(allChains));
+        return allChains;
       } finally {
         setBlockchainLoading(false);
       }
@@ -29,5 +41,5 @@ export const useFetchBlockchains = () => {
     if (blockchains.length === 0) fetchChains(true);
   }, [fetchChains, blockchains.length]);
 
-  return { blockchains, fetchChains, blockchainLoading };
+  return { blockchains, fetchChains, saveCustomBlockchain, blockchainLoading };
 };

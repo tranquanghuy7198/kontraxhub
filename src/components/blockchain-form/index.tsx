@@ -1,6 +1,7 @@
 import { capitalize } from "@utils/utils";
 import {
   Blockchain,
+  CUSTOM_CHAIN_LOGO,
   NetworkCluster,
   networkClusterIcon,
 } from "@utils/constants";
@@ -43,9 +44,7 @@ const BlockchainForm: React.FC<{
     blockchain.globalId = blockchainForm.form?.globalId ?? blockchainId;
     blockchain.code = blockchainForm.form?.code ?? blockchain.chainId;
     blockchain.faucet = blockchainForm.form?.faucet ?? false;
-
-    // TODO
-    blockchain.logo = "";
+    blockchain.logo = blockchainForm.form?.logo ?? CUSTOM_CHAIN_LOGO;
 
     // Save and fetch again
     saveCustomBlockchain(blockchain);

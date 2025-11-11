@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import BlockchainCard from "@components/chain-card";
 import { Blockchain } from "@utils/constants";
 import Header from "@components/header";
-import { Button, Checkbox, Drawer, Form, Input } from "antd";
-import { BlockchainForm, requestNewBlockchain } from "@api/discord";
-import useNotification from "antd/es/notification/useNotification";
+import { Drawer } from "antd";
 import { XBlock, XMasonry } from "react-xmasonry";
 import { useFetchBlockchains } from "@hooks/blockchain";
 import MainLayout from "@components/main-layout";
+import BlockchainForm from "@components/blockchain-form";
 
 const TESTNET: string = "testnet";
 const MAINNET: string = "mainnet";
@@ -24,8 +23,10 @@ const Blockchains: React.FC = () => {
     TESTNET,
   ]);
   const [searchedValue, setSearchedValue] = useState<string>();
-  const [addBlockchain, setAddBlockchain] = useState<boolean>(false);
-  const [notification, contextHolder] = useNotification();
+  const [chainForm, setChainForm] = useState<{
+    open: boolean;
+    form?: Blockchain;
+  }>({ open: false });
 
   useEffect(() => {
     setDisplayedBlockchains(
@@ -42,17 +43,8 @@ const Blockchains: React.FC = () => {
     );
   }, [blockchains, selectedValues, searchedValue]);
 
-  const requestChain = async (values: BlockchainForm) => {
-    await requestNewBlockchain(values);
-    notification.success({
-      message: "Request submmited",
-      description: `Thank you for your request. We will support ${values.name} as soon as possible.`,
-    });
-  };
-
   return (
     <MainLayout loading={blockchainLoading}>
-      {contextHolder}
       <Header
         header="Blockchains"
         options={[
@@ -61,7 +53,7 @@ const Blockchains: React.FC = () => {
         ]}
         onSelected={setSelectedValues}
         onSearched={setSearchedValue}
-        onAddRequested={() => setAddBlockchain(true)}
+        onAddRequested={() => setChainForm({ open: true })}
         defaultSelectAll
       />
       <div className="masonry-container">
@@ -75,37 +67,12 @@ const Blockchains: React.FC = () => {
       </div>
       <Drawer
         width={500}
-        title="Request New Blockchain"
-        open={addBlockchain}
+        title={chainForm.form ? chainForm.form.name : "Add Blockchain"}
+        open={chainForm.open}
         closable={true}
-        onClose={() => setAddBlockchain(false)}
+        onClose={() => setChainForm({ ...chainForm, open: false })}
       >
-        <Form
-          name="add-blockchain"
-          layout="horizontal"
-          autoComplete="off"
-          onFinish={(values) => requestChain(values)}
-        >
-          <Form.Item name="name" label="Name" required>
-            <Input placeholder="Blockchain Name" />
-          </Form.Item>
-          <Form.Item name="referenceLink" label="Reference Link" required>
-            <Input placeholder="Reference Link" />
-          </Form.Item>
-          <Form.Item
-            name="isTestnet"
-            label="Testnet"
-            valuePropName="checked"
-            required
-          >
-            <Checkbox />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Request
-            </Button>
-          </Form.Item>
-        </Form>
+        <BlockchainForm blockchainForm={chainForm} />
       </Drawer>
     </MainLayout>
   );

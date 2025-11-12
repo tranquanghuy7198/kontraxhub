@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import {
   ContractAddress,
   ContractTemplate,
+  CUSTOM_CHAIN_LOGO,
   DeployedContract,
 } from "@utils/constants";
 import { Card, Flex, Tooltip } from "antd";
@@ -9,7 +10,6 @@ import {
   DeleteOutlined,
   EditOutlined,
   ExportOutlined,
-  QuestionCircleFilled,
 } from "@ant-design/icons";
 import "@components/contract-card/contract-card.scss";
 import { shorten } from "@utils/utils";
@@ -64,18 +64,14 @@ const ContractCard: React.FC<{
                 onClick={() => onInteract(contract.template, address)}
               >
                 <Tooltip title={blockchain?.name ?? "Unknown blockchain"}>
-                  {blockchain ? (
-                    <img
-                      src={blockchain.logo}
-                      className={
-                        blockchain.isTestnet
-                          ? "chain-icon-testnet"
-                          : "chain-icon"
-                      }
-                    />
-                  ) : (
-                    <QuestionCircleFilled />
-                  )}
+                  <img
+                    src={blockchain?.logo ?? CUSTOM_CHAIN_LOGO}
+                    className={
+                      blockchain?.isTestnet
+                        ? "chain-icon-testnet"
+                        : "chain-icon"
+                    }
+                  />
                 </Tooltip>
                 <a>
                   {address.module || shorten(address.address)}{" "}

@@ -15,8 +15,10 @@ import MainLayout from "@components/main-layout";
 import { useSearchParams } from "react-router-dom";
 import { buildContractHash, CONTRACT_PARAM } from "@utils/share";
 import ContractInteraction from "@components/contract-interaction";
+import useNotification from "antd/es/notification/useNotification";
 
 const TrendingContracts: React.FC = () => {
+  const [notification, contextHolder] = useNotification();
   const { blockchains } = useBlockchains();
   const { trendingContracts, trendingLoading } = useFetchPopularContracts();
   const [displayedContracts, setDisplayedContracts] = useState<
@@ -80,8 +82,25 @@ const TrendingContracts: React.FC = () => {
     );
   }, [trendingContracts, blockchains, selectedClusters, searchedName]);
 
+  const interactContract = (
+    template: ContractTemplate,
+    address: ContractAddress
+  ) => {
+    const contractChain = blockchains.find(
+      (chain) => chain.id === address.blockchainId
+    );
+    if (contractChain) setSelectedAddress({ template, address, open: true });
+    else
+      notification.error({
+        message: "Blockchain not found",
+        description:
+          "This blockchain is not supported anymore, or your customized blockchain was deleted.",
+      });
+  };
+
   return (
     <MainLayout loading={trendingLoading}>
+      {contextHolder}
       <Header
         header="Popular Contracts"
         options={Object.values(NetworkCluster).map((cluster) => ({
@@ -96,12 +115,7 @@ const TrendingContracts: React.FC = () => {
         <XMasonry center={false} targetBlockWidth={300}>
           {displayedContracts.map((contract) => (
             <XBlock key={contract.template.id}>
-              <ContractCard
-                contract={contract}
-                onInteract={(template, address) =>
-                  setSelectedAddress({ template, address, open: true })
-                }
-              />
+              <ContractCard contract={contract} onInteract={interactContract} />
             </XBlock>
           ))}
         </XMasonry>

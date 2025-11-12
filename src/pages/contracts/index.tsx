@@ -169,6 +169,22 @@ const Contracts: React.FC = () => {
     }
   };
 
+  const interactContract = (
+    template: ContractTemplate,
+    address: ContractAddress
+  ) => {
+    const contractChain = blockchains.find(
+      (chain) => chain.id === address.blockchainId
+    );
+    if (contractChain) setSelectedAddress({ template, address, open: true });
+    else
+      notification.error({
+        message: "Blockchain not found",
+        description:
+          "This blockchain is not supported anymore, or your customized blockchain was deleted.",
+      });
+  };
+
   return (
     <MainLayout loading={contractLoading}>
       {contextHolder}
@@ -192,9 +208,7 @@ const Contracts: React.FC = () => {
                 contract={contract}
                 onDelete={setConfirmDeleteId}
                 onEdit={editContract}
-                onInteract={(template, address) =>
-                  setSelectedAddress({ template, address, open: true })
-                }
+                onInteract={interactContract}
               />
             </XBlock>
           ))}

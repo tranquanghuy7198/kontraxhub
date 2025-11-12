@@ -93,7 +93,7 @@ const Blockchains: React.FC = () => {
         onCancel={() => setDeleteChainId(undefined)}
         title="Delete Customized Blockchain"
         okText="Delete"
-        description="This action can not be undone. All customized information associated with this blockchain will be lost."
+        description="If this blockchain is your fully customized one, once you delete this, you cannot interact with your contracts associated with this blockchain. This action can not be undone. All customized information associated with this blockchain will be lost."
       />
     </MainLayout>
   );

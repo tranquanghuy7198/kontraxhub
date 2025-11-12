@@ -1,9 +1,13 @@
 import { capitalize } from "@utils/utils";
 import {
+  ADDRESS_PATTERN,
   Blockchain,
   CUSTOM_CHAIN_LOGO,
   NetworkCluster,
+  networkClusterAddressRegex,
   networkClusterIcon,
+  networkClusterTxRegex,
+  TX_PATTERN,
 } from "@utils/constants";
 import {
   Alert,
@@ -45,6 +49,18 @@ const BlockchainForm: React.FC<{
     blockchain.code = blockchainForm.form?.code ?? blockchain.chainId;
     blockchain.faucet = blockchainForm.form?.faucet ?? false;
     blockchain.logo = blockchainForm.form?.logo ?? CUSTOM_CHAIN_LOGO;
+    blockchain.addressUrl =
+      blockchainForm.form?.addressUrl ??
+      blockchain.addressUrl.replace(
+        networkClusterAddressRegex(blockchain.networkCluster),
+        ADDRESS_PATTERN
+      );
+    blockchain.txUrl =
+      blockchainForm.form?.txUrl ??
+      blockchain.txUrl.replace(
+        networkClusterTxRegex(blockchain.networkCluster),
+        TX_PATTERN
+      );
 
     // Save and notify
     saveCustomBlockchain(blockchain);

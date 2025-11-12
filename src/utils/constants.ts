@@ -25,6 +25,35 @@ export const networkClusterIcon = (networkCluster: NetworkCluster): string => {
   }[networkCluster];
 };
 
+export const networkClusterAddressRegex = (
+  networkCluster: NetworkCluster
+): RegExp => {
+  return {
+    [NetworkCluster.Ethereum]: /(0x)?[0-9a-fA-F]{40}/,
+    [NetworkCluster.Ronin]: /(0x)?[0-9a-fA-F]{40}/,
+    [NetworkCluster.Solana]: /[1-9A-HJ-NP-Za-km-z]{32,44}/,
+    [NetworkCluster.Sui]: /(0x)?[0-9a-fA-F]{1,64}/,
+    [NetworkCluster.Aptos]: /(0x)?[0-9a-fA-F]{1,64}/,
+    [NetworkCluster.Cosmos]:
+      /[a-z]{1,83}1[qpzry9x8gf2tvdw0s3jn54khce6mua7l]{38,59}/,
+    [NetworkCluster.FlowChain]: /(0x)?[0-9a-fA-F]{16}/,
+  }[networkCluster];
+};
+
+export const networkClusterTxRegex = (
+  networkCluster: NetworkCluster
+): RegExp => {
+  return {
+    [NetworkCluster.Ethereum]: /(0x)?[0-9a-fA-F]{64}/,
+    [NetworkCluster.Ronin]: /(0x)?[0-9a-fA-F]{64}/,
+    [NetworkCluster.Solana]: /[1-9A-HJ-NP-Za-km-z]{87,88}/,
+    [NetworkCluster.Sui]: /[1-9A-HJ-NP-Za-km-z]{43,44}/,
+    [NetworkCluster.Aptos]: /(0x)?[0-9a-fA-F]{64}/,
+    [NetworkCluster.Cosmos]: /[0-9A-Fa-f]{64}/,
+    [NetworkCluster.FlowChain]: /[0-9a-fA-F]{64}/,
+  }[networkCluster];
+};
+
 export enum AbiAction {
   Deploy = "deploy",
   Read = "read",

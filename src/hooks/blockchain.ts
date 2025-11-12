@@ -17,7 +17,13 @@ export const useFetchBlockchains = () => {
   >(CUSTOM_BLOCKCHAINS, { defaultValue: [] });
 
   const saveCustomBlockchain = (customBlockchain: Blockchain) => {
-    setCustomBlockchains(mergeChains(customBlockchains, [customBlockchain]));
+    // Save to local storage
+    const newCustomChains = mergeChains(customBlockchains, [customBlockchain]);
+    setCustomBlockchains(newCustomChains);
+
+    // Save to redux
+    const newAllChains = mergeChains(blockchains, newCustomChains);
+    dispatch(setBlockchains(newAllChains));
   };
 
   const fetchChains = useCallback(

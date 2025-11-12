@@ -21,7 +21,7 @@ import {
   FireOutlined,
   SendOutlined,
 } from "@ant-design/icons";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 import { useAuth } from "@hooks/auth";
 import { addContractAddresses } from "@api/contracts";
 import { useFetchMyContracts } from "@hooks/contract";
@@ -36,7 +36,7 @@ const AbiForm: React.FC<{
   contractTemplate: ContractTemplate;
   contractAddress?: ContractAddress; // not used for Contract Deploy
 }> = ({ contractAddress, defaultAction, contractTemplate }) => {
-  const { blockchains } = useFetchBlockchains();
+  const { blockchains } = useBlockchains();
   const { callAuthenticatedApi } = useAuth();
   const { fetchContracts } = useFetchMyContracts();
   const [wallet, setWallet] = useState<Wallet>();

@@ -8,7 +8,7 @@ import { mergeChains } from "@utils/utils";
 
 const CUSTOM_BLOCKCHAINS = "custom_blockchains";
 
-export const useFetchBlockchains = () => {
+export const useBlockchains = () => {
   const dispatch = useAppDispatch();
   const blockchains = useAppSelector((state) => state.blockchain.blockchains);
   const [blockchainLoading, setBlockchainLoading] = useState<boolean>(false);

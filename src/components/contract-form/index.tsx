@@ -13,7 +13,7 @@ import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import "@components/contract-form/contract-form.scss";
 import SelectOption from "@components/select-option";
 import VSCodeEditor from "@components/vscode-editor";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 import Bookmark from "@components/bookmark";
 
 export type ContractFormStructure = {
@@ -53,7 +53,7 @@ const ContractForm: React.FC<{
   contractForm: { open: boolean; form?: ContractFormStructure };
   saveContract: (contract: ContractFormStructure) => Promise<void>;
 }> = ({ contractForm, saveContract }) => {
-  const { blockchains } = useFetchBlockchains();
+  const { blockchains } = useBlockchains();
   const [form] = useForm();
   const addresses = useWatch<ContractAddress[]>("addresses", form);
   const [loading, setLoading] = useState<boolean>(false);

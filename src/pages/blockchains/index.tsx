@@ -6,7 +6,7 @@ import { Blockchain } from "@utils/constants";
 import Header from "@components/header";
 import { Drawer } from "antd";
 import { XBlock, XMasonry } from "react-xmasonry";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 import MainLayout from "@components/main-layout";
 import BlockchainForm from "@components/blockchain-form";
 
@@ -14,7 +14,7 @@ const TESTNET: string = "testnet";
 const MAINNET: string = "mainnet";
 
 const Blockchains: React.FC = () => {
-  const { blockchains, blockchainLoading } = useFetchBlockchains();
+  const { blockchains, blockchainLoading } = useBlockchains();
   const [displayedBlockchains, setDisplayedBlockchains] = useState<
     Blockchain[]
   >([]);

@@ -11,7 +11,7 @@ import {
   FileTextOutlined,
 } from "@ant-design/icons";
 import Paragraph from "antd/es/typography/Paragraph";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 
 const ContractTemplateCard: React.FC<{
   contractTemplate: ContractTemplate;
@@ -19,7 +19,7 @@ const ContractTemplateCard: React.FC<{
   onEdit: () => void;
   onDelete: () => void;
 }> = memo(({ contractTemplate, onDeploy, onEdit, onDelete }) => {
-  const { blockchains } = useFetchBlockchains();
+  const { blockchains } = useBlockchains();
 
   return (
     <Card

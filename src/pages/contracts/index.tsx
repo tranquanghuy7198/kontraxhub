@@ -17,7 +17,7 @@ import useNotification from "antd/es/notification/useNotification";
 import Paragraph from "antd/es/typography/Paragraph";
 import { XBlock, XMasonry } from "react-xmasonry";
 import ConfirmModal from "@components/confirm-modal";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 import AuthModal from "@components/auth-modal";
 import {
   useFetchMyContracts,
@@ -35,7 +35,7 @@ import ContractInteraction from "@/components/contract-interaction";
 
 const Contracts: React.FC = () => {
   const [notification, contextHolder] = useNotification();
-  const { blockchains } = useFetchBlockchains();
+  const { blockchains } = useBlockchains();
   const { fetchPopularContracts } = useFetchPopularContracts();
   const { fetchTemplates } = useFetchMyTemplates();
   const { contracts, fetchContracts, contractLoading } = useFetchMyContracts();

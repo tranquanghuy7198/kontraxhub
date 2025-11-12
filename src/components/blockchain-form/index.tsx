@@ -18,7 +18,7 @@ import { useForm, useWatch } from "antd/es/form/Form";
 import React, { useEffect } from "react";
 import { v4 } from "uuid";
 import SelectOption from "@components/select-option";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 import useNotification from "antd/es/notification/useNotification";
 import "./blockchain-form.scss";
 
@@ -27,7 +27,7 @@ const BlockchainForm: React.FC<{
 }> = ({ blockchainForm }) => {
   const [form] = useForm();
   const [notification, contextHolder] = useNotification();
-  const { saveCustomBlockchain, fetchChains } = useFetchBlockchains();
+  const { saveCustomBlockchain } = useBlockchains();
   const networkCluster = useWatch<NetworkCluster | undefined>(
     "networkCluster",
     form

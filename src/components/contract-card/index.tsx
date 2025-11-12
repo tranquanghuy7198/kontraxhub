@@ -14,7 +14,7 @@ import {
 import "@components/contract-card/contract-card.scss";
 import { shorten } from "@utils/utils";
 import Paragraph from "antd/es/typography/Paragraph";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 
 const ContractCard: React.FC<{
   contract: DeployedContract;
@@ -22,7 +22,7 @@ const ContractCard: React.FC<{
   onDelete?: (templateId: string) => void;
   onEdit?: (templateId: string) => void;
 }> = memo(({ contract, onInteract, onDelete, onEdit }) => {
-  const { blockchains } = useFetchBlockchains();
+  const { blockchains } = useBlockchains();
 
   const actions: React.ReactNode[] = [];
   if (onEdit)

@@ -5,7 +5,7 @@ import { useAppSelector } from "@redux/hook";
 import { Wallet } from "@utils/wallets/wallet";
 import { useForm } from "antd/es/form/Form";
 import SelectOption from "@components/select-option";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 
 const AbiWalletForm: React.FC<{
   defaultWallet?: string; // default wallet
@@ -21,7 +21,7 @@ const AbiWalletForm: React.FC<{
   onBlockchainSelected,
 }) => {
   const [form] = useForm();
-  const { blockchains } = useFetchBlockchains();
+  const { blockchains } = useBlockchains();
   const wallets = useAppSelector((state) => state.wallet.wallets);
 
   useEffect(() => {

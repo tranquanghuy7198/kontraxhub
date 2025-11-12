@@ -9,7 +9,7 @@ import {
 import ContractCard from "@components/contract-card";
 import { capitalize } from "@utils/utils";
 import { XBlock, XMasonry } from "react-xmasonry";
-import { useFetchBlockchains } from "@hooks/blockchain";
+import { useBlockchains } from "@hooks/blockchain";
 import { useFetchPopularContracts } from "@hooks/contract";
 import MainLayout from "@components/main-layout";
 import { useSearchParams } from "react-router-dom";
@@ -17,7 +17,7 @@ import { buildContractHash, CONTRACT_PARAM } from "@utils/share";
 import ContractInteraction from "@components/contract-interaction";
 
 const TrendingContracts: React.FC = () => {
-  const { blockchains } = useFetchBlockchains();
+  const { blockchains } = useBlockchains();
   const { trendingContracts, trendingLoading } = useFetchPopularContracts();
   const [displayedContracts, setDisplayedContracts] = useState<
     DeployedContract[]

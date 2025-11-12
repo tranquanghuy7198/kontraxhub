@@ -57,3 +57,13 @@ $description: #9ca3af;
   height: 20px !important;
   cursor: pointer;
 }
+
+.doc-link {
+  font-size: 10px;
+  font-style: italic;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

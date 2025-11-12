@@ -106,10 +106,34 @@ const BlockchainForm: React.FC<{
         <Form.Item label="Name" name="name" required>
           <Input placeholder="Blockchain Name" />
         </Form.Item>
-        <Form.Item label="Chain ID" name="chainId" required>
+        <Form.Item
+          label="Chain ID"
+          name="chainId"
+          required
+          help={
+            <div
+              className="doc-link"
+              onClick={() => window.open("https://chainlist.org/")}
+            >
+              Find chain ID at ChainList
+            </div>
+          }
+        >
           <Input placeholder="Chain ID" />
         </Form.Item>
-        <Form.Item label="RPC URL" name="rpcUrl" required>
+        <Form.Item
+          label="RPC URL"
+          name="rpcUrl"
+          required
+          help={
+            <div
+              className="doc-link"
+              onClick={() => window.open("https://chainlist.org/")}
+            >
+              Find RPC URL at ChainList
+            </div>
+          }
+        >
           <Input placeholder="RPC URL" />
         </Form.Item>
         <Form.Item label="Explorer URL" name="explorerUrl" required>

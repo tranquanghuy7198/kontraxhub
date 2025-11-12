@@ -46,11 +46,8 @@ const BlockchainForm: React.FC<{
     blockchain.faucet = blockchainForm.form?.faucet ?? false;
     blockchain.logo = blockchainForm.form?.logo ?? CUSTOM_CHAIN_LOGO;
 
-    // Save and fetch again
+    // Save and notify
     saveCustomBlockchain(blockchain);
-    fetchChains(true);
-
-    // Notify
     notification.success({
       message: "Success",
       description: "Blockchain saved successfully.",

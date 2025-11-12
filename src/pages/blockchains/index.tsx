@@ -9,12 +9,14 @@ import { XBlock, XMasonry } from "react-xmasonry";
 import { useBlockchains } from "@hooks/blockchain";
 import MainLayout from "@components/main-layout";
 import BlockchainForm from "@components/blockchain-form";
+import ConfirmModal from "@components/confirm-modal";
 
 const TESTNET: string = "testnet";
 const MAINNET: string = "mainnet";
 
 const Blockchains: React.FC = () => {
-  const { blockchains, blockchainLoading } = useBlockchains();
+  const { blockchains, deleteCustomBlockchain, blockchainLoading } =
+    useBlockchains();
   const [displayedBlockchains, setDisplayedBlockchains] = useState<
     Blockchain[]
   >([]);
@@ -27,6 +29,7 @@ const Blockchains: React.FC = () => {
     open: boolean;
     form?: Blockchain;
   }>({ open: false });
+  const [deleteChainId, setDeleteChainId] = useState<string>();
 
   useEffect(() => {
     setDisplayedBlockchains(
@@ -42,6 +45,10 @@ const Blockchains: React.FC = () => {
       })
     );
   }, [blockchains, selectedValues, searchedValue]);
+
+  const deleteChain = async () => {
+    if (deleteChainId) await deleteCustomBlockchain(deleteChainId);
+  };
 
   return (
     <MainLayout loading={blockchainLoading}>
@@ -63,6 +70,7 @@ const Blockchains: React.FC = () => {
               <BlockchainCard
                 blockchain={blockchain}
                 onEdit={() => setChainForm({ open: true, form: blockchain })}
+                onDelete={() => setDeleteChainId(blockchain.id)}
               />
             </XBlock>
           ))}
@@ -70,13 +78,23 @@ const Blockchains: React.FC = () => {
       </div>
       <Drawer
         width={500}
-        title={chainForm.form ? chainForm.form.name : "Add Blockchain"}
+        title={chainForm.form ? chainForm.form.name : "Customize Blockchain"}
         open={chainForm.open}
         closable={true}
         onClose={() => setChainForm({ ...chainForm, open: false })}
       >
         <BlockchainForm blockchainForm={chainForm} />
       </Drawer>
+      <ConfirmModal
+        showModal={deleteChainId !== undefined}
+        danger
+        showButtons
+        onOk={deleteChain}
+        onCancel={() => setDeleteChainId(undefined)}
+        title="Delete Customized Blockchain"
+        okText="Delete"
+        description="This action can not be undone. All customized information associated with this blockchain will be lost."
+      />
     </MainLayout>
   );
 };

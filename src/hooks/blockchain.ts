@@ -26,6 +26,12 @@ export const useBlockchains = () => {
     dispatch(setBlockchains(newAllChains));
   };
 
+  const deleteCustomBlockchain = async (chainId: string) => {
+    const newCustom = customBlockchains.filter((chain) => chain.id !== chainId);
+    setCustomBlockchains(newCustom);
+    await fetchChains(true);
+  };
+
   const fetchChains = useCallback(
     async (force: boolean = false): Promise<Blockchain[]> => {
       if (!force && blockchains.length > 0) return blockchains;
@@ -47,5 +53,11 @@ export const useBlockchains = () => {
     if (blockchains.length === 0) fetchChains(true);
   }, [fetchChains, blockchains.length]);
 
-  return { blockchains, fetchChains, saveCustomBlockchain, blockchainLoading };
+  return {
+    blockchains,
+    fetchChains,
+    saveCustomBlockchain,
+    deleteCustomBlockchain,
+    blockchainLoading,
+  };
 };

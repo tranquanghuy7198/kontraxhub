@@ -14,13 +14,16 @@
 }
 
 .blockchain-title {
-  display: flex;
-  flex-flow: row;
-  // align-items: start;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .blockchain-name {
   @extend .primary-title;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .blockchain-mainnet {

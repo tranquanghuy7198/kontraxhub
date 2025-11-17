@@ -69,7 +69,7 @@ export default defineConfig({
         entryFileNames: "assets/js/[name]-[hash].js",
       },
     },
-    target: "es2015",
+    target: "es2020",
     cssCodeSplit: true,
     assetsInlineLimit: 4096, // 4kb
   },

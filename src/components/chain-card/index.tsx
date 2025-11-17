@@ -1,6 +1,7 @@
 import {
   CheckCircleOutlined,
   DeleteOutlined,
+  DownloadOutlined,
   EditOutlined,
   ExportOutlined,
 } from "@ant-design/icons";
@@ -14,6 +15,18 @@ const BlockchainCard: React.FC<{
   onEdit: () => void;
   onDelete: () => void;
 }> = memo(({ blockchain, onEdit, onDelete }) => {
+  const exportBlockchainData = () => {
+    const blob = new Blob([JSON.stringify(blockchain, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${blockchain.name}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Card
       className="masonry-item"
@@ -28,6 +41,9 @@ const BlockchainCard: React.FC<{
           >
             <ExportOutlined />
           </a>
+        </Tooltip>,
+        <Tooltip title="Export">
+          <DownloadOutlined onClick={exportBlockchainData} />
         </Tooltip>,
         <Tooltip title="Edit">
           <EditOutlined onClick={onEdit} />

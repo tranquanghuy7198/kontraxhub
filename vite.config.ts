@@ -11,7 +11,7 @@ export default defineConfig({
       globals: { global: true, process: true },
     }),
   ],
-  base: process.env.NODE_ENV === "production" ? "/kontraxhub/" : "/",
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

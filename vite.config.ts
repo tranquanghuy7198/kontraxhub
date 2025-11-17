@@ -53,44 +53,6 @@ export default defineConfig({
     minify: "esbuild",
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Vendor chunk for node_modules
-          if (id.includes("node_modules")) {
-            // Separate large libraries
-            if (id.includes("react") || id.includes("react-dom")) {
-              return "vendor-react";
-            }
-            if (id.includes("react-router")) {
-              return "vendor-router";
-            }
-            if (id.includes("@reduxjs") || id.includes("redux")) {
-              return "vendor-redux";
-            }
-            if (id.includes("antd") || id.includes("@ant-design")) {
-              return "vendor-antd";
-            }
-            if (id.includes("@mui") || id.includes("@emotion")) {
-              return "vendor-mui";
-            }
-            if (
-              id.includes("chart") ||
-              id.includes("recharts") ||
-              id.includes("d3")
-            ) {
-              return "vendor-charts";
-            }
-            if (
-              id.includes("lodash") ||
-              id.includes("moment") ||
-              id.includes("date-fns")
-            ) {
-              return "vendor-utils";
-            }
-            return "vendor";
-          }
-        },
-
-        // Optimize asset file names
         assetFileNames: (assetInfo) => {
           if (!assetInfo.name) return "assets/[name]-[hash][extname]";
           const info = assetInfo.name.split(".");

@@ -29,6 +29,8 @@ import useNotification from "antd/es/notification/useNotification";
 import "./blockchain-form.scss";
 import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
 
+const IMPORT_CHAIN = "import-chain";
+
 const BlockchainForm: React.FC<{
   blockchainForm: { open: boolean; form?: Blockchain };
 }> = ({ blockchainForm }) => {
@@ -43,6 +45,30 @@ const BlockchainForm: React.FC<{
   useEffect(() => {
     if (blockchainForm.open) form.resetFields();
   }, [blockchainForm, form]);
+
+  const importBlockchainData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      notification.error({
+        message: "No file selected",
+        description: "You must select a JSON file",
+      });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const result = JSON.parse(reader.result as string);
+        form.setFieldsValue(result);
+      } catch (err) {
+        notification.error({
+          message: "Invalid JSON file",
+          description: err instanceof Error ? err.message : String(err),
+        });
+      }
+    };
+    reader.readAsText(file);
+  };
 
   const exportBlockchainData = () => {
     const data = form.getFieldsValue();
@@ -199,11 +225,18 @@ const BlockchainForm: React.FC<{
             Save Blockchain
           </Button>
           <Space>
+            <input
+              type="file"
+              accept="application/json"
+              id={IMPORT_CHAIN}
+              className="import-chain"
+              onChange={importBlockchainData}
+            />
             <Button
               variant="filled"
               color="default"
               icon={<UploadOutlined />}
-              onClick={() => {}}
+              onClick={() => document.getElementById(IMPORT_CHAIN)?.click()}
             >
               Import
             </Button>

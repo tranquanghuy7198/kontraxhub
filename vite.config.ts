@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
@@ -10,6 +11,16 @@ export default defineConfig({
       include: ["buffer", "process", "util", "crypto", "stream", "vm"],
       globals: { global: true, process: true },
     }),
+    ...(process.env.ANALYZE
+      ? [
+          visualizer({
+            open: true,
+            gzipSize: true,
+            brotliSize: true,
+            filename: "dist/stats.html",
+          }),
+        ]
+      : []),
   ],
   base: "/",
   resolve: {
@@ -37,13 +48,78 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV !== "production",
+    chunkSizeWarningLimit: 1000,
+    minify: "esbuild",
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          // Vendor chunk for node_modules
+          if (id.includes("node_modules")) {
+            // Separate large libraries
+            if (id.includes("react") || id.includes("react-dom")) {
+              return "vendor-react";
+            }
+            if (id.includes("react-router")) {
+              return "vendor-router";
+            }
+            if (id.includes("@reduxjs") || id.includes("redux")) {
+              return "vendor-redux";
+            }
+            if (id.includes("antd") || id.includes("@ant-design")) {
+              return "vendor-antd";
+            }
+            if (id.includes("@mui") || id.includes("@emotion")) {
+              return "vendor-mui";
+            }
+            if (
+              id.includes("chart") ||
+              id.includes("recharts") ||
+              id.includes("d3")
+            ) {
+              return "vendor-charts";
+            }
+            if (
+              id.includes("lodash") ||
+              id.includes("moment") ||
+              id.includes("date-fns")
+            ) {
+              return "vendor-utils";
+            }
+            return "vendor";
+          }
+        },
+
+        // Optimize asset file names
+        assetFileNames: (assetInfo) => {
+          if (!assetInfo.name) return "assets/[name]-[hash][extname]";
+          const info = assetInfo.name.split(".");
+          let extType = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = "images";
+          } else if (/woff|woff2|ttf|eot/i.test(extType)) {
+            extType = "fonts";
+          }
+          return `assets/${extType}/[name]-[hash][extname]`;
+        },
+
+        chunkFileNames: "assets/js/[name]-[hash].js",
+        entryFileNames: "assets/js/[name]-[hash].js",
+      },
+    },
+    target: "es2015",
+    cssCodeSplit: true,
+    assetsInlineLimit: 4096, // 4kb
   },
+
   css: {
     preprocessorOptions: {
       scss: {
         // Add any SCSS options if needed
       },
+    },
+    modules: {
+      localsConvention: "camelCase",
     },
   },
   optimizeDeps: {
@@ -54,6 +130,14 @@ export default defineConfig({
       "util",
       "crypto-browserify",
       "vm-browserify",
+      "react",
+      "react-dom",
+      "react-router-dom",
     ],
+    force: false,
+  },
+  esbuild: {
+    logOverride: { "this-is-undefined-in-esm": "silent" },
+    drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
   },
 });

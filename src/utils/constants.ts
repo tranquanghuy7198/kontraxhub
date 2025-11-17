@@ -1,3 +1,4 @@
+export const PRODUCT_NAME = "KontraxHub";
 export const PRIMARY_COLOR = "#1ABC9C";
 export const CUSTOM_CHAIN_LOGO = "https://i.ibb.co/4nkVGsXh/ic-blockchain.png"; // TODO: config
 export const ADDRESS_PATTERN = "[[address]]";

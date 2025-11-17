@@ -2,7 +2,7 @@
 
 ## Overview
 
-[KontraxHub](https://tranquanghuy7198.github.io/kontraxhub) addresses the common pain points in blockchain development by offering a centralized platform where developers can manage their smart contract lifecycle through an intuitive web interface. Rather than memorizing and executing complex command-line instructions for deployment, testing, and contract interaction, developers can leverage KontraxHub's visual tools to perform these operations quickly and reliably.
+[KontraxHub](https://kontraxhub.pages.dev) addresses the common pain points in blockchain development by offering a centralized platform where developers can manage their smart contract lifecycle through an intuitive web interface. Rather than memorizing and executing complex command-line instructions for deployment, testing, and contract interaction, developers can leverage KontraxHub's visual tools to perform these operations quickly and reliably.
 
 The platform is designed to enhance developer productivity by reducing context switching between terminal commands and development environments, while maintaining the flexibility and power that blockchain developers require.
 

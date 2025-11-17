@@ -38,7 +38,11 @@ const BlockchainCard: React.FC<{
       ]}
     >
       <div className="blockchain-card-content">
-        <img className="blockchain-logo" src={blockchain.logo} />
+        <img
+          className="blockchain-logo"
+          src={blockchain.logo}
+          alt={blockchain.name}
+        />
         <div>
           <div className="blockchain-title">
             <div className="blockchain-name">{blockchain.name}</div>

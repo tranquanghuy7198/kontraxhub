@@ -13,10 +13,12 @@ import {
   Alert,
   Button,
   Checkbox,
+  Flex,
   Form,
   Input,
   InputNumber,
   Select,
+  Space,
 } from "antd";
 import { useForm, useWatch } from "antd/es/form/Form";
 import React, { useEffect } from "react";
@@ -25,6 +27,7 @@ import SelectOption from "@components/select-option";
 import { useBlockchains } from "@hooks/blockchain";
 import useNotification from "antd/es/notification/useNotification";
 import "./blockchain-form.scss";
+import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
 
 const BlockchainForm: React.FC<{
   blockchainForm: { open: boolean; form?: Blockchain };
@@ -40,6 +43,19 @@ const BlockchainForm: React.FC<{
   useEffect(() => {
     if (blockchainForm.open) form.resetFields();
   }, [blockchainForm, form]);
+
+  const exportBlockchainData = () => {
+    const data = form.getFieldsValue();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${data.name || v4()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const saveBlockchain = (blockchain: Blockchain) => {
     // Fill auto fields
@@ -178,9 +194,29 @@ const BlockchainForm: React.FC<{
           message="Your customized blockchain is visible to you only."
           className="blockchain-warning"
         />
-        <Button type="primary" htmlType="submit">
-          Save Blockchain
-        </Button>
+        <Flex justify="space-between">
+          <Button type="primary" htmlType="submit">
+            Save Blockchain
+          </Button>
+          <Space>
+            <Button
+              variant="filled"
+              color="default"
+              icon={<UploadOutlined />}
+              onClick={() => {}}
+            >
+              Import
+            </Button>
+            <Button
+              variant="filled"
+              color="default"
+              icon={<DownloadOutlined />}
+              onClick={exportBlockchainData}
+            >
+              Export
+            </Button>
+          </Space>
+        </Flex>
       </Form>
     </>
   );

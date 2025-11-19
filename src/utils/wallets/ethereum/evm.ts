@@ -133,7 +133,7 @@ export class MetaMask extends EvmWallet {
         titleColor: "#be5500ff",
       },
       "https://metamask.io/download/",
-      NetworkCluster.Ethereum,
+      NetworkCluster.Evm,
       ethereum ? new ethers.BrowserProvider(ethereum, "any") : undefined
     );
     this.inject = ethereum;

@@ -5,7 +5,7 @@ export const ADDRESS_PATTERN = "[[address]]";
 export const TX_PATTERN = "[[tx]]";
 
 export enum NetworkCluster {
-  Ethereum = "ethereum",
+  Evm = "evm",
   Ronin = "ronin",
   Solana = "solana",
   Sui = "sui",
@@ -16,7 +16,7 @@ export enum NetworkCluster {
 
 export const networkClusterIcon = (networkCluster: NetworkCluster): string => {
   return {
-    [NetworkCluster.Ethereum]: "https://i.ibb.co/wZsCSP9F/ic-ethereum.png",
+    [NetworkCluster.Evm]: "https://i.ibb.co/wZsCSP9F/ic-ethereum.png",
     [NetworkCluster.Ronin]: "https://i.ibb.co/1Gw44cZC/ic-ronin.png",
     [NetworkCluster.Solana]: "https://i.ibb.co/vCHPLmDG/ic-solana.png",
     [NetworkCluster.Sui]: "https://i.ibb.co/Q4Ks6pJ/ic-sui.png",
@@ -30,7 +30,7 @@ export const networkClusterAddressRegex = (
   networkCluster: NetworkCluster
 ): RegExp => {
   return {
-    [NetworkCluster.Ethereum]: /(0x)?[0-9a-fA-F]{40}/,
+    [NetworkCluster.Evm]: /(0x)?[0-9a-fA-F]{40}/,
     [NetworkCluster.Ronin]: /(0x)?[0-9a-fA-F]{40}/,
     [NetworkCluster.Solana]: /[1-9A-HJ-NP-Za-km-z]{32,44}/,
     [NetworkCluster.Sui]: /(0x)?[0-9a-fA-F]{1,64}/,
@@ -45,7 +45,7 @@ export const networkClusterTxRegex = (
   networkCluster: NetworkCluster
 ): RegExp => {
   return {
-    [NetworkCluster.Ethereum]: /(0x)?[0-9a-fA-F]{64}/,
+    [NetworkCluster.Evm]: /(0x)?[0-9a-fA-F]{64}/,
     [NetworkCluster.Ronin]: /(0x)?[0-9a-fA-F]{64}/,
     [NetworkCluster.Solana]: /[1-9A-HJ-NP-Za-km-z]{87,88}/,
     [NetworkCluster.Sui]: /[1-9A-HJ-NP-Za-km-z]{43,44}/,

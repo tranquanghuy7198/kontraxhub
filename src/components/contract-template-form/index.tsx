@@ -58,7 +58,7 @@ const ContractTemplateForm: React.FC<{
   const [solanaProgramId, setSolanaProgramId] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const cluster = (networkClusters?.at(0) ||
-    NetworkCluster.Ethereum) as NetworkCluster;
+    NetworkCluster.Evm) as NetworkCluster;
 
   useEffect(() => {
     if (templateForm.open) form.resetFields();
@@ -195,7 +195,7 @@ const ContractTemplateForm: React.FC<{
         </>
       )}
       {(networkClusters || []).some((networkCluster) =>
-        [NetworkCluster.Ethereum, NetworkCluster.Ronin]
+        [NetworkCluster.Evm, NetworkCluster.Ronin]
           .map((cluster) => cluster.toString())
           .includes(networkCluster)
       ) && (

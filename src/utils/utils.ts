@@ -27,7 +27,7 @@ export const normalizeAddr = (
   networkCluster?: NetworkCluster
 ): string => {
   switch (networkCluster) {
-    case NetworkCluster.Ethereum:
+    case NetworkCluster.Evm:
     case NetworkCluster.Ronin:
     case NetworkCluster.Aptos:
       return address.toLowerCase();

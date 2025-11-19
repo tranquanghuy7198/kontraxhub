@@ -282,7 +282,7 @@ const EvmTxForm: React.FC<{
         <Form.Item>
           <AbiFormAction
             action={action}
-            networkCluster={NetworkCluster.Ethereum}
+            networkCluster={NetworkCluster.Evm}
             loading={loading}
             copying={copying}
             form={evmAbiForm}

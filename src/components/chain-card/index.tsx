@@ -5,7 +5,7 @@ import {
   EditOutlined,
   ExportOutlined,
 } from "@ant-design/icons";
-import { Card, Tooltip } from "antd";
+import { Card, Space, Tooltip } from "antd";
 import "./blockchain-card.scss";
 import React, { memo } from "react";
 import { Blockchain } from "@utils/constants";
@@ -53,35 +53,40 @@ const BlockchainCard: React.FC<{
         </Tooltip>,
       ]}
     >
-      <div className="blockchain-card-content">
-        <img
-          className="blockchain-logo"
-          src={blockchain.logo}
-          alt={blockchain.name}
-        />
-        <div>
+      <Card.Meta
+        avatar={
+          <img
+            className="blockchain-logo"
+            src={blockchain.logo}
+            alt={blockchain.name}
+          />
+        }
+        title={
           <div className="blockchain-title">
             <div className="blockchain-name">{blockchain.name}</div>
             {!blockchain.isTestnet && (
               <Tooltip
-                overlay={
-                  <div>
-                    Mainnet <CheckCircleOutlined />
-                  </div>
-                }
                 color="green"
+                overlay={
+                  <Space>
+                    <>Mainnet</>
+                    <CheckCircleOutlined />
+                  </Space>
+                }
               >
                 <CheckCircleOutlined className="blockchain-mainnet" />
               </Tooltip>
             )}
           </div>
-          <div className="description">
+        }
+        description={
+          <div>
             <div>Chain ID: {blockchain.chainId}</div>
             <div>Token: {blockchain.nativeToken}</div>
             <div>Decimals: {blockchain.nativeDecimal}</div>
           </div>
-        </div>
-      </div>
+        }
+      />
     </Card>
   );
 });

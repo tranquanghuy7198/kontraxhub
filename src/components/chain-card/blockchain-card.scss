@@ -1,16 +1,9 @@
 @use "../../styles.scss" as *;
 
-.blockchain-card-content {
-  display: flex;
-  flex-flow: row;
-  width: 100%;
-}
-
 .blockchain-logo {
-  margin-top: 10px;
-  margin-right: 20px;
-  max-width: 50px;
-  max-height: 50px;
+  margin-top: 5px;
+  max-width: 40px;
+  max-height: 40px;
 }
 
 .blockchain-title {
@@ -21,7 +14,6 @@
 }
 
 .blockchain-name {
-  @extend .primary-title;
   white-space: normal;
   word-break: break-word;
 }
@@ -29,7 +21,6 @@
 .blockchain-mainnet {
   color: $success;
   margin-left: 5px;
-  margin-top: 5px;
 }
 
 .blockchain-explorer {

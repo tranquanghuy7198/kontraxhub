@@ -33,16 +33,18 @@ const Blockchains: React.FC = () => {
 
   useEffect(() => {
     setDisplayedBlockchains(
-      blockchains.filter((chain) => {
-        if (
-          searchedValue &&
-          !chain.name.toLowerCase().includes(searchedValue.toLowerCase())
-        )
-          return false;
-        if (!selectedValues.includes(chain.isTestnet ? TESTNET : MAINNET))
-          return false;
-        return true;
-      })
+      blockchains
+        .filter((chain) => {
+          if (
+            searchedValue &&
+            !chain.name.toLowerCase().includes(searchedValue.toLowerCase())
+          )
+            return false;
+          if (!selectedValues.includes(chain.isTestnet ? TESTNET : MAINNET))
+            return false;
+          return true;
+        })
+        .sort((chainA, chainB) => chainA.code.localeCompare(chainB.code))
     );
   }, [blockchains, selectedValues, searchedValue]);
 

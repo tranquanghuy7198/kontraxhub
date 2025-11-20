@@ -1,0 +1,9 @@
+@use "../../styles.scss" as *;
+
+.hover-card {
+  transition: border 0.3s ease;
+}
+
+.hover-card:hover {
+  border: 1px solid $primary; /* Ant Design primary color */
+}

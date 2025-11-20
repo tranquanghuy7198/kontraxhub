@@ -9,6 +9,7 @@ import { Card, Space, Tooltip } from "antd";
 import "./blockchain-card.scss";
 import React, { memo } from "react";
 import { Blockchain } from "@utils/constants";
+import HoverCard from "@components/hover-card";
 
 const BlockchainCard: React.FC<{
   blockchain: Blockchain;
@@ -28,9 +29,8 @@ const BlockchainCard: React.FC<{
   };
 
   return (
-    <Card
+    <HoverCard
       className="masonry-item"
-      hoverable
       actions={[
         <a
           href={blockchain.explorerUrl}
@@ -79,7 +79,7 @@ const BlockchainCard: React.FC<{
           </div>
         }
       />
-    </Card>
+    </HoverCard>
   );
 });
 

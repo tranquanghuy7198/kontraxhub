@@ -32,25 +32,17 @@ const BlockchainCard: React.FC<{
       className="masonry-item"
       hoverable
       actions={[
-        <Tooltip title="Go to Explorer">
-          <a
-            href={blockchain.explorerUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="blockchain-explorer"
-          >
-            <ExportOutlined />
-          </a>
-        </Tooltip>,
-        <Tooltip title="Export">
-          <DownloadOutlined onClick={exportBlockchainData} />
-        </Tooltip>,
-        <Tooltip title="Edit">
-          <EditOutlined onClick={onEdit} />
-        </Tooltip>,
-        <Tooltip title="Delete">
-          <DeleteOutlined onClick={onDelete} />
-        </Tooltip>,
+        <a
+          href={blockchain.explorerUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="blockchain-explorer"
+        >
+          <ExportOutlined />
+        </a>,
+        <DownloadOutlined onClick={exportBlockchainData} />,
+        <EditOutlined onClick={onEdit} />,
+        <DeleteOutlined onClick={onDelete} />,
       ]}
     >
       <Card.Meta

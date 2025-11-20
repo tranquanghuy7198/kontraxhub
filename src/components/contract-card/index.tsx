@@ -5,7 +5,7 @@ import {
   CUSTOM_CHAIN_LOGO,
   DeployedContract,
 } from "@utils/constants";
-import { Card, Flex, Tooltip } from "antd";
+import { Flex, Tooltip } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -15,6 +15,7 @@ import "@components/contract-card/contract-card.scss";
 import { shorten } from "@utils/utils";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useBlockchains } from "@hooks/blockchain";
+import HoverCard from "@components/hover-card";
 
 const ContractCard: React.FC<{
   contract: DeployedContract;
@@ -39,7 +40,7 @@ const ContractCard: React.FC<{
     );
 
   return (
-    <Card className="masonry-item" hoverable actions={actions}>
+    <HoverCard className="masonry-item" actions={actions}>
       <Flex vertical justify="stretch" gap={5}>
         <div className="contract-name">{contract.template.name}</div>
         {contract.template.description && (
@@ -82,7 +83,7 @@ const ContractCard: React.FC<{
           })}
         </div>
       </Flex>
-    </Card>
+    </HoverCard>
   );
 });
 

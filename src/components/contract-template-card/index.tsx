@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import "./contract-template-card.scss";
 import { ContractTemplate } from "@utils/constants";
-import { Avatar, Card, Flex, Space, Tooltip } from "antd";
+import { Avatar, Flex, Space, Tooltip } from "antd";
 import {
   CloudUploadOutlined,
   CodeOutlined,
@@ -12,6 +12,7 @@ import {
 } from "@ant-design/icons";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useBlockchains } from "@hooks/blockchain";
+import HoverCard from "@components/hover-card";
 
 const ContractTemplateCard: React.FC<{
   contractTemplate: ContractTemplate;
@@ -22,9 +23,8 @@ const ContractTemplateCard: React.FC<{
   const { blockchains } = useBlockchains();
 
   return (
-    <Card
+    <HoverCard
       className="masonry-item"
-      hoverable
       actions={[
         <Tooltip title="Deploy">
           <CloudUploadOutlined onClick={onDeploy} />
@@ -107,7 +107,7 @@ const ContractTemplateCard: React.FC<{
           ))}
         </Flex>
       </Flex>
-    </Card>
+    </HoverCard>
   );
 });
 

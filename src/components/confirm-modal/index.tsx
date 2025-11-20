@@ -13,7 +13,7 @@ const ConfirmModal: React.FC<{
   onCancel?: () => void;
   title: string;
   okText?: string;
-  description: string;
+  description: React.ReactNode;
 }> = ({
   showModal,
   danger = false,
@@ -30,7 +30,7 @@ const ConfirmModal: React.FC<{
       open={showModal}
       footer={null}
       onCancel={onCancel}
-      width={350}
+      width={430}
     >
       <Flex vertical align="center" justify="stretch" gap={12}>
         <Image
@@ -39,7 +39,7 @@ const ConfirmModal: React.FC<{
           preview={false}
         />
         <div className="primary-title">{title}</div>
-        <div className="description">{description}</div>
+        <div className="confirm-description">{description}</div>
         {showButtons && (
           <Button
             type="primary"

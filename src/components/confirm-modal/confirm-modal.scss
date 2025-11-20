@@ -3,3 +3,8 @@
 .confirm-icon {
   width: 40px !important;
 }
+
+.confirm-description {
+  @extend .description;
+  text-align: justify;
+}

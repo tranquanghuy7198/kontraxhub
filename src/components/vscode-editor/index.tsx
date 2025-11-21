@@ -8,7 +8,7 @@ const TRANSPARENT = "#00000000";
 export type GenerateAction = {
   id: string;
   label: string;
-  generate: () => string;
+  generate: () => any;
 };
 
 interface VSCodeEditorProps {
@@ -54,7 +54,8 @@ const VSCodeEditor = forwardRef<VSCodeEditorRef, VSCodeEditorProps>(
             run: (editor) => {
               const model = editor.getModel();
               if (!model) return; // should not happen
-              model.setValue(action.generate());
+              const generated = action.generate();
+              model.setValue(JSON.stringify(generated, null, 2));
             },
           });
         });

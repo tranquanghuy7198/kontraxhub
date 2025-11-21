@@ -26,7 +26,7 @@ const ContractInteraction: React.FC<{
 }) => {
   return (
     <Drawer
-      width={700}
+      width={800}
       title={
         template && address ? (
           <AbiTitle

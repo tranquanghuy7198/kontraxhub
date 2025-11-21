@@ -26,15 +26,9 @@ const ContractTemplateCard: React.FC<{
     <HoverCard
       className="masonry-item"
       actions={[
-        <Tooltip title="Deploy">
-          <CloudUploadOutlined onClick={onDeploy} />
-        </Tooltip>,
-        <Tooltip title="Edit">
-          <EditOutlined onClick={onEdit} />
-        </Tooltip>,
-        <Tooltip title="Delete">
-          <DeleteOutlined onClick={onDelete} />
-        </Tooltip>,
+        <CloudUploadOutlined onClick={onDeploy} />,
+        <EditOutlined onClick={onEdit} />,
+        <DeleteOutlined onClick={onDelete} />,
       ]}
     >
       <Flex vertical gap={12}>

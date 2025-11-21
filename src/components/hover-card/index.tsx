@@ -5,7 +5,7 @@ import "./hover-card.scss";
 
 const HoverCard: React.FC<CardProps> = ({ children, className, ...props }) => {
   return (
-    <Card hoverable className={classNames("hover-card", className)} {...props}>
+    <Card className={classNames("hover-card", className)} {...props}>
       {children}
     </Card>
   );

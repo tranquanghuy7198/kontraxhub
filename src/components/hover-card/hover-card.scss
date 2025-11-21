@@ -1,5 +1,9 @@
 @use "../../styles.scss" as *;
 
+.hover-card {
+  cursor: pointer;
+}
+
 .hover-card:hover {
   border: 1px solid $primary;
 }

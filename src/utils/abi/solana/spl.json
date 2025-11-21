@@ -1,33 +1,27 @@
 {
-  "idlVersion": "0.1.0",
-  "version": "0.0.1",
-  "name": "spl_token",
-  "metadata": {
-    "address": "Basic111111111111111111111111111111111111"
-  },
-  "docs": ["Minimal SPL token wrapper program using Anchor v0.30+ IDL format"],
   "types": [],
   "errors": [
-    {
-      "code": 6000,
-      "name": "Unauthorized",
-      "msg": "Signer is not authorized."
-    },
-    {
-      "code": 6001,
-      "name": "InvalidAccount",
-      "msg": "Invalid account provided."
-    },
-    {
-      "code": 6002,
-      "name": "AmountOverflow",
-      "msg": "Amount overflow."
-    }
+    { "msg": "Unauthorized signer", "code": 6000, "name": "ErrUnauthorized" },
+    { "msg": "Invalid account", "code": 6001, "name": "ErrInvalidAccount" },
+    { "msg": "Amount overflow", "code": 6002, "name": "ErrAmountOverflow" }
   ],
-  "ixs": [
+  "address": "WrapToKen1111111111111111111111111111111111",
+  "accounts": [],
+  "metadata": {
+    "name": "spl_wrapper",
+    "spec": "0.1.0",
+    "version": "0.1.0",
+    "description": "SPL Token Wrapper Program (Anchor Spec 0.1.0)"
+  },
+  "instructions": [
     {
-      "name": "createMint",
-      "docs": ["Create & initialize a new SPL mint"],
+      "name": "create_mint",
+      "discriminator": [1, 1, 1, 1, 1, 1, 1, 1],
+      "args": [
+        { "name": "decimals", "type": "u8" },
+        { "name": "mint_authority", "type": "pubkey" },
+        { "name": "freeze_authority", "type": { "option": "pubkey" } }
+      ],
       "accounts": [
         {
           "name": "payer",
@@ -39,24 +33,21 @@
           "writable": true
         },
         {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program"
+        },
+        {
           "name": "rent"
-        },
-        {
-          "name": "tokenProgram"
-        },
-        {
-          "name": "systemProgram"
         }
-      ],
-      "args": [
-        { "name": "decimals", "type": "u8" },
-        { "name": "mintAuthority", "type": "pubkey" },
-        { "name": "freezeAuthority", "type": { "option": "pubkey" } }
       ]
     },
     {
-      "name": "mintTo",
-      "docs": ["Mint SPL tokens"],
+      "name": "mint_to",
+      "discriminator": [2, 2, 2, 2, 2, 2, 2, 2],
+      "args": [{ "name": "amount", "type": "u64" }],
       "accounts": [
         {
           "name": "mint",
@@ -71,14 +62,14 @@
           "signer": true
         },
         {
-          "name": "tokenProgram"
+          "name": "token_program"
         }
-      ],
-      "args": [{ "name": "amount", "type": "u64" }]
+      ]
     },
     {
-      "name": "transferTokens",
-      "docs": ["Transfer SPL tokens"],
+      "name": "transfer_tokens",
+      "discriminator": [3, 3, 3, 3, 3, 3, 3, 3],
+      "args": [{ "name": "amount", "type": "u64" }],
       "accounts": [
         {
           "name": "source",
@@ -93,14 +84,14 @@
           "signer": true
         },
         {
-          "name": "tokenProgram"
+          "name": "token_program"
         }
-      ],
-      "args": [{ "name": "amount", "type": "u64" }]
+      ]
     },
     {
-      "name": "burnTokens",
-      "docs": ["Burn SPL tokens"],
+      "name": "burn_tokens",
+      "discriminator": [4, 4, 4, 4, 4, 4, 4, 4],
+      "args": [{ "name": "amount", "type": "u64" }],
       "accounts": [
         {
           "name": "mint",
@@ -115,14 +106,14 @@
           "signer": true
         },
         {
-          "name": "tokenProgram"
+          "name": "token_program"
         }
-      ],
-      "args": [{ "name": "amount", "type": "u64" }]
+      ]
     },
     {
-      "name": "approveDelegate",
-      "docs": ["Approve delegate for SPL token account"],
+      "name": "approve_delegate",
+      "discriminator": [5, 5, 5, 5, 5, 5, 5, 5],
+      "args": [{ "name": "amount", "type": "u64" }],
       "accounts": [
         {
           "name": "account",
@@ -136,14 +127,14 @@
           "signer": true
         },
         {
-          "name": "tokenProgram"
+          "name": "token_program"
         }
-      ],
-      "args": [{ "name": "amount", "type": "u64" }]
+      ]
     },
     {
-      "name": "revokeDelegate",
-      "docs": ["Revoke delegate"],
+      "name": "revoke_delegate",
+      "discriminator": [6, 6, 6, 6, 6, 6, 6, 6],
+      "args": [],
       "accounts": [
         {
           "name": "account",
@@ -154,10 +145,9 @@
           "signer": true
         },
         {
-          "name": "tokenProgram"
+          "name": "token_program"
         }
-      ],
-      "args": []
+      ]
     }
   ]
 }

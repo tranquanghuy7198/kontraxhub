@@ -1,7 +1,6 @@
 @use "../../styles.scss" as *;
 
 .template-name {
-  @extend .primary-title;
   flex: 1;
   text-overflow: ellipsis;
   white-space: nowrap;

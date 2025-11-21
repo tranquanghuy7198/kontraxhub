@@ -156,7 +156,17 @@ const AbiFormInput = forwardRef<AbiFormInputRef, AbiFormInputProps>(
               placeholder={placeholder}
               disabled={isDisabled}
               onChange={handleEditorChange}
-              genDefaultJson={genDefaultJson}
+              genActions={
+                genDefaultJson
+                  ? [
+                      {
+                        id: "gen-default-value",
+                        label: "Generate Default Value",
+                        generate: genDefaultJson,
+                      },
+                    ]
+                  : undefined
+              }
             />
           ) : (
             <Input

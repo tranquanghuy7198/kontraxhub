@@ -4,7 +4,7 @@ import {
   CUSTOM_CHAIN_LOGO,
   DeployedContract,
 } from "@utils/constants";
-import { Flex, Tooltip } from "antd";
+import { Card, Flex, Tooltip } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -30,48 +30,47 @@ const ContractCard: React.FC<{
 
   return (
     <HoverCard className="masonry-item" actions={actions}>
-      <Flex vertical justify="stretch" gap={5}>
-        <div className="contract-name">{contract.template.name}</div>
-        {contract.template.description && (
-          <Paragraph
-            className="description"
-            ellipsis={{ rows: 4, expandable: true, symbol: "See more" }}
-          >
-            {contract.template.description}
-          </Paragraph>
-        )}
-        <div>
-          {contract.addresses.map((address) => {
-            const blockchain = blockchains.find(
-              (chain) => chain.id === address.blockchainId
-            );
-            return (
-              <Flex
-                key={`${address.blockchainId}-${address.address}-${address.module}`}
-                align="center"
-                gap={10}
-                className="contract-address"
-                onClick={() => onInteract(address)}
-              >
-                <Tooltip title={blockchain?.name ?? "Unknown blockchain"}>
-                  <img
-                    src={blockchain?.logo ?? CUSTOM_CHAIN_LOGO}
-                    className={
-                      blockchain?.isTestnet
-                        ? "chain-icon-testnet"
-                        : "chain-icon"
-                    }
-                  />
-                </Tooltip>
-                <a>
-                  {address.module || shorten(address.address)}{" "}
-                  <ExportOutlined />
-                </a>
-              </Flex>
-            );
-          })}
-        </div>
-      </Flex>
+      <Card.Meta
+        title={contract.template.name}
+        description={
+          contract.template.description ? (
+            <Paragraph
+              className="description"
+              ellipsis={{ rows: 4, expandable: true, symbol: "See more" }}
+            >
+              {contract.template.description}
+            </Paragraph>
+          ) : undefined
+        }
+      />
+      <div>
+        {contract.addresses.map((address) => {
+          const blockchain = blockchains.find(
+            (chain) => chain.id === address.blockchainId
+          );
+          return (
+            <Flex
+              key={`${address.blockchainId}-${address.address}-${address.module}`}
+              align="center"
+              gap={10}
+              className="contract-address"
+              onClick={() => onInteract(address)}
+            >
+              <Tooltip title={blockchain?.name ?? "Unknown blockchain"}>
+                <img
+                  src={blockchain?.logo ?? CUSTOM_CHAIN_LOGO}
+                  className={
+                    blockchain?.isTestnet ? "chain-icon-testnet" : "chain-icon"
+                  }
+                />
+              </Tooltip>
+              <a>
+                {address.module || shorten(address.address)} <ExportOutlined />
+              </a>
+            </Flex>
+          );
+        })}
+      </div>
     </HoverCard>
   );
 });

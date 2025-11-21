@@ -49,7 +49,7 @@ const VSCodeEditor = forwardRef<VSCodeEditorRef, VSCodeEditorProps>(
           editor.addAction({
             id: action.id,
             label: action.label,
-            contextMenuGroupId: "navigation",
+            contextMenuGroupId: "0_generation",
             contextMenuOrder: index,
             run: (editor) => {
               const model = editor.getModel();

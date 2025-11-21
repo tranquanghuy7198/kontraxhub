@@ -1,0 +1,163 @@
+{
+  "idlVersion": "0.1.0",
+  "version": "0.0.1",
+  "name": "spl_token",
+  "metadata": {
+    "address": "Basic111111111111111111111111111111111111"
+  },
+  "docs": ["Minimal SPL token wrapper program using Anchor v0.30+ IDL format"],
+  "types": [],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Signer is not authorized."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidAccount",
+      "msg": "Invalid account provided."
+    },
+    {
+      "code": 6002,
+      "name": "AmountOverflow",
+      "msg": "Amount overflow."
+    }
+  ],
+  "ixs": [
+    {
+      "name": "createMint",
+      "docs": ["Create & initialize a new SPL mint"],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint",
+          "writable": true
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "tokenProgram"
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        { "name": "decimals", "type": "u8" },
+        { "name": "mintAuthority", "type": "pubkey" },
+        { "name": "freezeAuthority", "type": { "option": "pubkey" } }
+      ]
+    },
+    {
+      "name": "mintTo",
+      "docs": ["Mint SPL tokens"],
+      "accounts": [
+        {
+          "name": "mint",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "tokenProgram"
+        }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "transferTokens",
+      "docs": ["Transfer SPL tokens"],
+      "accounts": [
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "tokenProgram"
+        }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "burnTokens",
+      "docs": ["Burn SPL tokens"],
+      "accounts": [
+        {
+          "name": "mint",
+          "writable": true
+        },
+        {
+          "name": "account",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "tokenProgram"
+        }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "approveDelegate",
+      "docs": ["Approve delegate for SPL token account"],
+      "accounts": [
+        {
+          "name": "account",
+          "writable": true
+        },
+        {
+          "name": "delegate"
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "tokenProgram"
+        }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "revokeDelegate",
+      "docs": ["Revoke delegate"],
+      "accounts": [
+        {
+          "name": "account",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "tokenProgram"
+        }
+      ],
+      "args": []
+    }
+  ]
+}

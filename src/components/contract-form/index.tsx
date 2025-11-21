@@ -18,6 +18,7 @@ import Bookmark from "@components/bookmark";
 import erc20Abi from "@utils/abi/evm/erc20.json";
 import erc721Abi from "@utils/abi/evm/erc721.json";
 import erc1155Abi from "@utils/abi/evm/erc1155.json";
+import splTokenIdl from "@utils/abi/solana/spl.json";
 
 export type ContractFormStructure = {
   templateId: string;
@@ -109,6 +110,11 @@ const ContractForm: React.FC<{
               id: "gen-evm-erc1155",
               label: "Generate ERC1155 ABI",
               generate: () => erc1155Abi,
+            },
+            {
+              id: "gen-solana-spl",
+              label: "Generate SPL Token IDL",
+              generate: () => splTokenIdl,
             },
           ]}
         />

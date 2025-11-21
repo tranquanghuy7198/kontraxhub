@@ -115,7 +115,10 @@ const TrendingContracts: React.FC = () => {
         <XMasonry center={false} targetBlockWidth={300}>
           {displayedContracts.map((contract) => (
             <XBlock key={contract.template.id}>
-              <ContractCard contract={contract} onInteract={interactContract} />
+              <ContractCard
+                contract={contract}
+                onInteract={(addr) => interactContract(contract.template, addr)}
+              />
             </XBlock>
           ))}
         </XMasonry>

@@ -206,9 +206,9 @@ const Contracts: React.FC = () => {
             <XBlock key={contract.template.id}>
               <ContractCard
                 contract={contract}
-                onDelete={setConfirmDeleteId}
-                onEdit={editContract}
-                onInteract={interactContract}
+                onDelete={() => setConfirmDeleteId(contract.template.id)}
+                onEdit={() => editContract(contract.template.id)}
+                onInteract={(addr) => interactContract(contract.template, addr)}
               />
             </XBlock>
           ))}

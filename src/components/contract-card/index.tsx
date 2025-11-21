@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import {
   ContractAddress,
-  ContractTemplate,
   CUSTOM_CHAIN_LOGO,
   DeployedContract,
 } from "@utils/constants";
@@ -19,25 +18,15 @@ import HoverCard from "@components/hover-card";
 
 const ContractCard: React.FC<{
   contract: DeployedContract;
-  onInteract: (template: ContractTemplate, address: ContractAddress) => void;
-  onDelete?: (templateId: string) => void;
-  onEdit?: (templateId: string) => void;
+  onInteract: (address: ContractAddress) => void;
+  onDelete?: () => void;
+  onEdit?: () => void;
 }> = memo(({ contract, onInteract, onDelete, onEdit }) => {
   const { blockchains } = useBlockchains();
 
   const actions: React.ReactNode[] = [];
-  if (onEdit)
-    actions.push(
-      <Tooltip title="Edit">
-        <EditOutlined onClick={() => onEdit(contract.template.id)} />
-      </Tooltip>
-    );
-  if (onDelete)
-    actions.push(
-      <Tooltip title="Delete">
-        <DeleteOutlined onClick={() => onDelete(contract.template.id)} />
-      </Tooltip>
-    );
+  if (onEdit) actions.push(<EditOutlined onClick={onEdit} />);
+  if (onDelete) actions.push(<DeleteOutlined onClick={onDelete} />);
 
   return (
     <HoverCard className="masonry-item" actions={actions}>
@@ -62,7 +51,7 @@ const ContractCard: React.FC<{
                 align="center"
                 gap={10}
                 className="contract-address"
-                onClick={() => onInteract(contract.template, address)}
+                onClick={() => onInteract(address)}
               >
                 <Tooltip title={blockchain?.name ?? "Unknown blockchain"}>
                   <img

@@ -15,6 +15,9 @@ import SelectOption from "@components/select-option";
 import VSCodeEditor from "@components/vscode-editor";
 import { useBlockchains } from "@hooks/blockchain";
 import Bookmark from "@components/bookmark";
+import erc20Abi from "@utils/abi/evm/erc20.json";
+import erc721Abi from "@utils/abi/evm/erc721.json";
+import erc1155Abi from "@utils/abi/evm/erc1155.json";
 
 export type ContractFormStructure = {
   templateId: string;
@@ -91,6 +94,23 @@ const ContractForm: React.FC<{
         <VSCodeEditor
           placeholder="Contract ABI (EVM) or IDL (Solana)"
           disabled={loading}
+          genActions={[
+            {
+              id: "gen-evm-erc20",
+              label: "Generate ERC20 ABI",
+              generate: () => erc20Abi,
+            },
+            {
+              id: "gen-evm-erc721",
+              label: "Generate ERC721 ABI",
+              generate: () => erc721Abi,
+            },
+            {
+              id: "gen-evm-erc1155",
+              label: "Generate ERC1155 ABI",
+              generate: () => erc1155Abi,
+            },
+          ]}
         />
       </Form.Item>
       <Form.Item name="flattenSource" label="Flatten Source">
